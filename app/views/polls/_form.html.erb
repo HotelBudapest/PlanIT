@@ -1,0 +1,27 @@
+<%= form_with(model: poll) do |form| %>
+  <% if poll.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(poll.errors.count, "error") %> prohibited this poll from being saved:</h2>
+
+      <ul>
+        <% poll.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :event_id, style: "display: block" %>
+    <%= form.text_field :event_id %>
+  </div>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

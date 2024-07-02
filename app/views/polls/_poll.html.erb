@@ -1,0 +1,21 @@
+<div id="<%= dom_id poll %>">
+  <h3><%= poll.title %></h3>
+  
+  <ul>
+    <% poll.votes.each do |vote| %>
+      <li><%= vote.status %> by <%= vote.user.email %></li>
+    <% end %>
+  </ul>
+
+  <h4>Add Vote</h4>
+  <%= form_with(model: [poll, poll.votes.build], local: true) do |form| %>
+    <div class="field">
+      <%= form.label :status %>
+      <%= form.select :status, ['In', 'Out'] %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit 'Vote' %>
+    </div>
+  <% end %>
+</div>
