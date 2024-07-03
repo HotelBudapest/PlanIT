@@ -1,9 +1,9 @@
 class Event < ApplicationRecord
-  belongs_to :creator, class_name: 'User', foreign_key: 'creator_id'
-  has_many :event_users, dependent: :destroy
+  belongs_to :creator, class_name: 'User'
+  has_many :event_users
   has_many :attendees, through: :event_users, source: :user
-
+  has_many :polls, dependent: :destroy
   has_one_attached :image
 
-  validates :title, :description, :location, :start_time, :end_time, presence: true
+  accepts_nested_attributes_for :polls, allow_destroy: true
 end

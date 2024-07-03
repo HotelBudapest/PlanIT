@@ -36,6 +36,10 @@
   </div>
 
   <div class="mb-3">
+    <%= form.hidden_field :creator_id, value: current_user.id %>
+  </div>
+
+  <div class="mb-3">
     <%= form.label :image, "Event Image", class: 'form-label' %>
     <%= form.file_field :image, class: 'form-control' %>
     <% if @event.image.attached? %>
@@ -44,6 +48,31 @@
       </div>
     <% end %>
   </div>
+
+  <h2>Polls</h2>
+  <%= form.fields_for :polls do |poll_form| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <div class="mb-3">
+          <%= poll_form.label :title, class: 'form-label' %>
+          <%= poll_form.text_field :title, class: 'form-control' %>
+        </div>
+
+        <div id="poll_options">
+          <%= poll_form.fields_for :poll_options do |option_form| %>
+            <div class="nested-fields mb-3">
+              <%= option_form.label :option, 'Poll Option', class: 'form-label' %>
+              <%= option_form.text_field :option, class: 'form-control' %>
+              <%= option_form.check_box :_destroy %>
+              <%= option_form.label :_destroy, 'Remove', class: 'form-check-label' %>
+            </div>
+          <% end %>
+        </div>
+
+        <%= link_to_add_fields "Add Option", poll_form, :poll_options %>
+      </div>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit 'Save Event', class: 'btn btn-primary' %>

@@ -1,10 +1,6 @@
 <h1><%= @event.title %></h1>
+<p><%= @event.description %></p>
 
-<% if @event.image.attached? %>
-  <%= image_tag @event.image, class: 'img-fluid' %>
-<% end %>
-
-<p><strong>Description:</strong> <%= @event.description %></p>
 <p><strong>Location:</strong> <%= @event.location %></p>
 <p><strong>Start Time:</strong> <%= @event.start_time %></p>
 <p><strong>End Time:</strong> <%= @event.end_time %></p>
@@ -15,17 +11,60 @@
     <%= label_tag :user_email, 'User Email', class: 'form-label' %>
     <%= text_field_tag :user_email, nil, class: 'form-control' %>
   </div>
-  <div class="actions">
-    <%= submit_tag 'Invite', class: 'btn btn-primary' %>
-  </div>
+  <%= submit_tag 'Invite', class: 'btn btn-primary' %>
 <% end %>
 
 <h2>Attendees</h2>
-<ul>
+<ul class="list-group mb-3">
   <% @event.attendees.each do |attendee| %>
-    <li><%= attendee.email %></li>
+    <li class="list-group-item"><%= attendee.email %></li>
   <% end %>
 </ul>
 
-<%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-secondary' %>
-<%= link_to 'Back', events_path, class: 'btn btn-primary' %>
+<h2>Polls</h2>
+<%= form_with(model: [@event, @poll], local: true) do |form| %>
+  <% if @poll.errors.any? %>
+    <div id="error_explanation">
+      <h4><%= pluralize(@poll.errors.count, "error") %> prohibited this poll from being saved:</h4>
+      <ul>
+        <% @poll.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title, class: 'form-label' %>
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div id="poll_options">
+    <%= form.fields_for :poll_options do |option_form| %>
+      <div class="nested-fields mb-3">
+        <%= option_form.label :option, 'Poll Option', class: 'form-label' %>
+        <%= option_form.text_field :option, class: 'form-control' %>
+        <%= option_form.check_box :_destroy %>
+        <%= option_form.label :_destroy, 'Remove', class: 'form-check-label' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Save Poll', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<h2>Existing Polls</h2>
+<% @poll_options.each do |poll| %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title"><%= poll.title %></h5>
+      <ul class="list-group list-group-flush">
+        <% poll.poll_options.each do |option| %>
+          <li class="list-group-item"><%= option.option %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>

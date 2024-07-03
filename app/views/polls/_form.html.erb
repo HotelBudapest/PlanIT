@@ -1,27 +1,32 @@
-<%= form_with(model: poll) do |form| %>
-  <% if poll.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(poll.errors.count, "error") %> prohibited this poll from being saved:</h2>
-
+<%= form_with(model: [ @poll.event, @poll ], local: true) do |form| %>
+  <% if @poll.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@poll.errors.count, "error") %> prohibited this poll from being saved:</h2>
       <ul>
-        <% poll.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% @poll.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :event_id, style: "display: block" %>
-    <%= form.text_field :event_id %>
-  </div>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
+  <div class="field">
+    <%= form.label :title %>
     <%= form.text_field :title %>
   </div>
 
-  <div>
+  <div id="poll-options">
+    <%= form.fields_for :poll_options do |poll_option_fields| %>
+      <div class="field">
+        <%= poll_option_fields.label :title %>
+        <%= poll_option_fields.text_field :title %>
+        <%= link_to 'Remove', '#', class: 'remove_poll_option' %>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to 'Add Option', '#', id: 'add_poll_option' %>
+
+  <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>

@@ -9,6 +9,8 @@ class EventsController < ApplicationController
   end
 
   def show
+    @poll = Poll.new
+    @poll_options = @event.polls.includes(:votes)
   end
 
   def new
@@ -61,6 +63,6 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :description, :location, :start_time, :end_time, :image)
+    params.require(:event).permit(:title, :description, :location, :start_time, :end_time, :image, polls_attributes: [:id, :title, :_destroy, poll_options_attributes: [:id, :option, :_destroy]])
   end
 end

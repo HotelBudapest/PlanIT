@@ -1,14 +1,24 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Polls</h1>
+<%= link_to 'New Poll', new_event_poll_path(@event), class: 'btn btn-primary' %>
 
-<div id="polls">
-  <% @polls.each do |poll| %>
-    <%= render poll %>
-    <p>
-      <%= link_to "Show this poll", poll %>
-    </p>
-  <% end %>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
 
-<%= link_to "New poll", new_poll_path %>
+  <tbody>
+    <% @polls.each do |poll| %>
+      <tr>
+        <td><%= poll.title %></td>
+        <td>
+          <%= link_to 'Show', [@poll.event, poll], class: 'btn btn-primary' %>
+          <%= link_to 'Edit', edit_event_poll_path(@poll.event, poll), class: 'btn btn-secondary' %>
+          <%= link_to 'Destroy', [@poll.event, poll], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

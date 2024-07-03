@@ -1,10 +1,12 @@
-<p style="color: green"><%= notice %></p>
+<h1><%= @poll.title %></h1>
 
-<%= render @poll %>
-
-<div>
-  <%= link_to "Edit this poll", edit_poll_path(@poll) %> |
-  <%= link_to "Back to polls", polls_path %>
-
-  <%= button_to "Destroy this poll", @poll, method: :delete %>
-</div>
+<h2>Options</h2>
+<%= form_with(url: vote_event_poll_path(@event, @poll), local: true) do |form| %>
+  <% @poll.poll_options.each do |option| %>
+    <div>
+      <%= form.radio_button :poll_option_id, option.id %>
+      <%= option.title %> - <%= option.votes_count %> votes
+    </div>
+  <% end %>
+  <%= form.submit 'Vote' %>
+<% end %>
