@@ -3,10 +3,13 @@ Rails.application.routes.draw do
   root 'home#index'
   
   resources :events do
-    resources :polls do
-      resources :votes, only: [:create, :destroy]
+    member do
+      post 'invite'
     end
-    resources :comments, only: [:create, :destroy]
+    resources :polls do
+      resources :votes
+    end
+    resources :comments
   end
 
   resources :users, only: [:show]

@@ -1,7 +1,6 @@
-<h1>Events</h1>
-
+<h1>My Created Events</h1>
 <div class="row">
-  <% @events.each do |event| %>
+  <% @created_events.each do |event| %>
     <div class="col-md-4">
       <div class="card mb-4" style="width: 18rem;">
         <% if event.image.attached? %>
@@ -17,7 +16,30 @@
           <p><strong>End Time:</strong> <%= event.end_time %></p>
           <%= link_to 'Show', event, class: 'btn btn-primary' %>
           <%= link_to 'Edit', edit_event_path(event), class: 'btn btn-secondary' %>
-          <%= link_to 'Destroy', event, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<h1>Events I'm Invited To</h1>
+<div class="row">
+  <% @invited_events.each do |event| %>
+    <div class="col-md-4">
+      <div class="card mb-4" style="width: 18rem;">
+        <% if event.image.attached? %>
+          <%= image_tag event.image, class: 'card-img-top', alt: 'Event Image' %>
+        <% else %>
+          <img src="https://via.placeholder.com/150" class="card-img-top" alt="Event Image">
+        <% end %>
+        <div class="card-body">
+          <h5 class="card-title"><%= event.title %></h5>
+          <p class="card-text"><%= truncate(event.description, length: 100) %></p>
+          <p><strong>Location:</strong> <%= event.location %></p>
+          <p><strong>Start Time:</strong> <%= event.start_time %></p>
+          <p><strong>End Time:</strong> <%= event.end_time %></p>
+          <%= link_to 'Show', event, class: 'btn btn-primary' %>
         </div>
       </div>
     </div>

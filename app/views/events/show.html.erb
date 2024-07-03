@@ -1,18 +1,31 @@
 <h1><%= @event.title %></h1>
 
+<% if @event.image.attached? %>
+  <%= image_tag @event.image, class: 'img-fluid' %>
+<% end %>
+
 <p><strong>Description:</strong> <%= @event.description %></p>
 <p><strong>Location:</strong> <%= @event.location %></p>
 <p><strong>Start Time:</strong> <%= @event.start_time %></p>
 <p><strong>End Time:</strong> <%= @event.end_time %></p>
 
-<h2>Polls</h2>
-<%= render @event.polls %>
+<h2>Invite Users</h2>
+<%= form_with(url: invite_event_path(@event), local: true) do %>
+  <div class="mb-3">
+    <%= label_tag :user_email, 'User Email', class: 'form-label' %>
+    <%= text_field_tag :user_email, nil, class: 'form-control' %>
+  </div>
+  <div class="actions">
+    <%= submit_tag 'Invite', class: 'btn btn-primary' %>
+  </div>
+<% end %>
 
-<h2>Comments</h2>
-<%= render @event.comments %>
+<h2>Attendees</h2>
+<ul>
+  <% @event.attendees.each do |attendee| %>
+    <li><%= attendee.email %></li>
+  <% end %>
+</ul>
 
-<h3>Add a Comment</h3>
-<%= render 'comments/form', event: @event %>
-
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<%= link_to 'Edit', edit_event_path(@event), class: 'btn btn-secondary' %>
+<%= link_to 'Back', events_path, class: 'btn btn-primary' %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_02_220446) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_03_063536) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -49,16 +49,25 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_220446) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "event_users", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_users_on_event_id"
+    t.index ["user_id"], name: "index_event_users_on_user_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.string "location"
     t.datetime "start_time"
     t.datetime "end_time"
-    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_events_on_user_id"
+    t.integer "creator_id", null: false
+    t.index ["creator_id"], name: "index_events_on_creator_id"
   end
 
   create_table "polls", force: :cascade do |t|
@@ -95,7 +104,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_02_220446) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "events"
   add_foreign_key "comments", "users"
-  add_foreign_key "events", "users"
+  add_foreign_key "event_users", "events"
+  add_foreign_key "event_users", "users"
   add_foreign_key "polls", "events"
   add_foreign_key "votes", "polls"
   add_foreign_key "votes", "users"
