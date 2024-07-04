@@ -41,7 +41,10 @@ class EventsController < ApplicationController
   def destroy
     @event.destroy
     redirect_to events_url, notice: 'Event was successfully destroyed.'
+  rescue ActiveRecord::InvalidForeignKey => e
+    redirect_to events_url, alert: 'Failed to destroy event due to associated records.'
   end
+  
 
   def invite
     user = User.find_by(email: params[:user_email])
