@@ -1,24 +1,21 @@
 class VotesController < ApplicationController
-  before_action :set_poll
+  before_action :set_poll_option
 
   def create
-    @vote = @poll.votes.build(vote_params)
-    @vote.user = current_user
-
+    @vote = @poll_option.votes.build(user: current_user)
+    @vote.poll = @poll_option.poll
     if @vote.save
-      redirect_to event_path(@poll.event), notice: "Your vote has been recorded."
+      Rails.logger.info "Vote saved successfully."
+      redirect_to @poll_option.poll.event, notice: 'Vote was successfully cast.'
     else
-      redirect_to event_path(@poll.event), alert: "Unable to record your vote."
+      Rails.logger.error "Vote save failed: #{@vote.errors.full_messages.join(", ")}"
+      redirect_to @poll_option.poll.event, alert: 'There was an error casting your vote.'
     end
   end
 
   private
 
-  def set_poll
-    @poll = Poll.find(params[:poll_id])
-  end
-
-  def vote_params
-    params.require(:vote).permit(:option)
+  def set_poll_option
+    @poll_option = PollOption.find(params[:poll_option_id])
   end
 end

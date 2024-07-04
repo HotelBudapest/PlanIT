@@ -7,7 +7,9 @@ Rails.application.routes.draw do
       post 'invite'
     end
     resources :polls, only: [:create, :destroy] do
-      resources :poll_options, only: [:new, :create]
+      resources :poll_options, only: [:new, :create] do
+        resources :votes, only: [:create]
+      end
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_04_060252) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_04_094124) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -105,7 +105,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_04_060252) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "poll_option_id", null: false
     t.index ["poll_id"], name: "index_votes_on_poll_id"
+    t.index ["poll_option_id"], name: "index_votes_on_poll_option_id"
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
@@ -118,6 +120,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_04_060252) do
   add_foreign_key "events", "users", column: "creator_id", on_delete: :cascade
   add_foreign_key "poll_options", "polls"
   add_foreign_key "polls", "events"
+  add_foreign_key "votes", "poll_options"
   add_foreign_key "votes", "polls"
   add_foreign_key "votes", "users", on_delete: :cascade
 end
