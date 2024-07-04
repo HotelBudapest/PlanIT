@@ -1,0 +1,23 @@
+<h1>Add a Poll Option</h1>
+
+<%= form_with(model: [@event, @poll, @poll_option], local: true) do |form| %>
+  <% if @poll_option.errors.any? %>
+    <div id="error_explanation">
+      <h4><%= pluralize(@poll_option.errors.count, "error") %> prohibited this poll option from being saved:</h4>
+      <ul>
+        <% @poll_option.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title, class: 'form-label' %>
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Add Option', class: 'btn btn-primary' %>
+  </div>
+<% end %>
