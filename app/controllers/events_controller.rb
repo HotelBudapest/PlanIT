@@ -10,8 +10,10 @@ class EventsController < ApplicationController
 
   def show
     @poll = Poll.new
-    @poll_options = @event.polls.includes(:poll_options)
+    @poll_options = @event.polls.includes(:votes)
+    @comments = @event.comments.includes(:user)
   end
+  
 
   def new
     @event = Event.new

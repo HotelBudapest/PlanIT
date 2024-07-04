@@ -1,0 +1,11 @@
+<ul class="list-group list-group-flush">
+  <% poll.poll_options.each do |option| %>
+    <li class="list-group-item">
+      <%= option.title %>
+      <%= button_to 'Vote', event_poll_poll_option_votes_path(@event, poll, option), method: :post, data: { turbo_method: :post }, class: 'btn btn-primary btn-sm' %>
+      <span class="badge bg-secondary"><%= option.votes.count %> votes</span>
+      <%= link_to 'Edit', edit_event_poll_poll_option_path(@event, poll, option), class: 'btn btn-warning btn-sm' %>
+      <%= link_to 'Delete', event_poll_poll_option_path(@event, poll, option), method: :delete, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+    </li>
+  <% end %>
+</ul>
