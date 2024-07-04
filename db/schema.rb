@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_03_204423) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_04_060252) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -112,15 +112,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_03_204423) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "events"
-  add_foreign_key "comments", "users"
   add_foreign_key "comments", "users", on_delete: :cascade
   add_foreign_key "event_users", "events"
-  add_foreign_key "event_users", "users"
   add_foreign_key "event_users", "users", on_delete: :cascade
   add_foreign_key "events", "users", column: "creator_id", on_delete: :cascade
   add_foreign_key "poll_options", "polls"
   add_foreign_key "polls", "events"
   add_foreign_key "votes", "polls"
-  add_foreign_key "votes", "users"
   add_foreign_key "votes", "users", on_delete: :cascade
 end

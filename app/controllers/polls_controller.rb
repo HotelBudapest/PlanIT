@@ -1,6 +1,6 @@
 class PollsController < ApplicationController
-  before_action :set_poll, only: %i[ show edit update destroy ]
-  before_action :set_event, only: %i[ create ]
+  before_action :set_poll, only: %i[show edit update destroy]
+  before_action :set_event, only: %i[create update]
 
   def show
     @poll_options = @poll.poll_options.includes(:votes)
@@ -25,6 +25,29 @@ class PollsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    respond_to do |format|
+      if @poll.update(poll_params)
+        format.html { redirect_to @event, notice: 'Poll was successfully updated.' }
+        format.json { render :show, status: :ok, location: @poll }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @poll.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @poll.destroy
+    respond_to do |format|
+      format.html { redirect_to @event, notice: 'Poll was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
 
   def set_poll
@@ -36,6 +59,6 @@ class PollsController < ApplicationController
   end
 
   def poll_params
-    params.require(:poll).permit(:title, poll_options_attributes: [:id, :option, :_destroy])
+    params.require(:poll).permit(:title, poll_options_attributes: [:id, :title, :_destroy])
   end
 end

@@ -6,10 +6,7 @@ Rails.application.routes.draw do
     member do
       post 'invite'
     end
-    resources :polls do
-      resources :votes
-    end
-    resources :comments
+    resources :polls, only: [:create, :destroy]
   end
 
   resources :users, only: [:show]

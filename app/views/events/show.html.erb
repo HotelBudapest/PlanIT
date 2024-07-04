@@ -42,8 +42,8 @@
   <div id="poll_options">
     <%= form.fields_for :poll_options do |option_form| %>
       <div class="nested-fields mb-3">
-        <%= option_form.label :option, 'Poll Option', class: 'form-label' %>
-        <%= option_form.text_field :option, class: 'form-control' %>
+        <%= option_form.label :title, 'Poll Option', class: 'form-label' %>
+        <%= option_form.text_field :title, class: 'form-control' %>
         <%= option_form.check_box :_destroy %>
         <%= option_form.label :_destroy, 'Remove', class: 'form-check-label' %>
       </div>
@@ -62,7 +62,7 @@
       <h5 class="card-title"><%= poll.title %></h5>
       <ul class="list-group list-group-flush">
         <% poll.poll_options.each do |option| %>
-          <li class="list-group-item"><%= option.option %></li>
+          <li class="list-group-item"><%= option.title %></li>
         <% end %>
       </ul>
     </div>
