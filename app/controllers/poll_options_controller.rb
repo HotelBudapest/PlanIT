@@ -1,6 +1,6 @@
 class PollOptionsController < ApplicationController
     before_action :set_event_and_poll
-    before_action :set_poll_option, only: [:edit, :update, :destroy]
+    before_action :authorize_user!
   
     def new
       @poll_option = @poll.poll_options.build
@@ -16,9 +16,11 @@ class PollOptionsController < ApplicationController
     end
   
     def edit
+      @poll_option = @poll.poll_options.find(params[:id])
     end
   
     def update
+      @poll_option = @poll.poll_options.find(params[:id])
       if @poll_option.update(poll_option_params)
         redirect_to @event, notice: 'Poll option was successfully updated.'
       else
@@ -27,6 +29,7 @@ class PollOptionsController < ApplicationController
     end
   
     def destroy
+      @poll_option = @poll.poll_options.find(params[:id])
       @poll_option.destroy
       redirect_to @event, notice: 'Poll option was successfully deleted.'
     end
@@ -38,8 +41,10 @@ class PollOptionsController < ApplicationController
       @poll = Poll.find(params[:poll_id])
     end
   
-    def set_poll_option
-      @poll_option = @poll.poll_options.find(params[:id])
+    def authorize_user!
+      unless @event.attendees.include?(current_user) || @event.creator == current_user
+        redirect_to events_path, alert: 'You are not authorized to perform this action.'
+      end
     end
   
     def poll_option_params

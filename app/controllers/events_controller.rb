@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_event, only: [:show, :edit, :update, :destroy, :invite]
-  before_action :authorize_user!, only: [:edit, :update, :destroy, :invite]
+  before_action :authorize_user!, only: [:show, :edit, :update, :destroy]
 
   def index
     @created_events = current_user.created_events
@@ -13,7 +13,6 @@ class EventsController < ApplicationController
     @poll_options = @event.polls.includes(:votes)
     @comments = @event.comments.includes(:user)
   end
-  
 
   def new
     @event = Event.new
@@ -61,7 +60,9 @@ class EventsController < ApplicationController
   end
 
   def authorize_user!
-    redirect_to events_path, alert: 'You are not authorized to perform this action.' unless @event.creator == current_user
+    unless @event.creator == current_user || @event.attendees.include?(current_user)
+      redirect_to root_path, alert: 'You are not authorized to view this event.'
+    end
   end
 
   def event_params
