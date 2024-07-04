@@ -1,51 +1,19 @@
 class PollsController < ApplicationController
-  before_action :set_poll, only: %i[show edit update destroy]
-  before_action :set_event, only: %i[create update]
-
-  def show
-    @poll_options = @poll.poll_options.includes(:votes)
-  end
-
-  def new
-    @poll = Poll.new
-    @poll.poll_options.build
-  end
+  before_action :set_poll, only: [:destroy]
+  before_action :set_event, only: [:create, :destroy]
 
   def create
     @poll = @event.polls.build(poll_params)
-
-    respond_to do |format|
-      if @poll.save
-        format.html { redirect_to @event, notice: "Poll was successfully created." }
-        format.json { render :show, status: :created, location: @poll }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @poll.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def edit
-  end
-
-  def update
-    respond_to do |format|
-      if @poll.update(poll_params)
-        format.html { redirect_to @event, notice: 'Poll was successfully updated.' }
-        format.json { render :show, status: :ok, location: @poll }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @poll.errors, status: :unprocessable_entity }
-      end
+    if @poll.save
+      redirect_to @event, notice: "Poll was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   def destroy
     @poll.destroy
-    respond_to do |format|
-      format.html { redirect_to @event, notice: 'Poll was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to @event, notice: "Poll was successfully deleted."
   end
 
   private
