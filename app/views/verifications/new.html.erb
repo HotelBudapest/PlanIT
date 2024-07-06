@@ -1,0 +1,11 @@
+<h1>Email Verification</h1>
+<%= form_with url: verifications_path, local: true do |form| %>
+  <%= form.hidden_field :email, value: @user.email %>
+  <div class="field">
+    <%= form.label :verification_code %>
+    <%= form.text_field :verification_code %>
+  </div>
+  <div class="actions">
+    <%= form.submit 'Verify' %>
+  </div>
+<% end %>

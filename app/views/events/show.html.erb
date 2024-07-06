@@ -5,6 +5,8 @@
 <p><strong>Start Time:</strong> <%= @event.start_time %></p>
 <p><strong>End Time:</strong> <%= @event.end_time %></p>
 
+<br>
+
 <h2>Invite Users</h2>
 <%= form_with(url: invite_event_path(@event), local: true) do %>
   <div class="mb-3">
@@ -14,12 +16,16 @@
   <%= submit_tag 'Invite', class: 'btn btn-primary' %>
 <% end %>
 
+<br>
+
 <h2>Attendees</h2>
 <ul class="list-group mb-3">
   <% @event.attendees.each do |attendee| %>
     <li class="list-group-item"><%= attendee.email %></li>
   <% end %>
 </ul>
+
+<br>
 
 <h2>Polls</h2>
 <%= form_with(model: [@event, @poll], local: true) do |form| %>
@@ -55,6 +61,8 @@
   </div>
 <% end %>
 
+<br>
+
 <h2>Existing Polls</h2>
 <% @poll_options.each do |poll| %>
   <div class="card mb-3">
@@ -79,6 +87,8 @@
   </div>
 <% end %>
 
+<br>
+
 <h2>Comments</h2>
 <%= form_with(model: [@event, Comment.new], local: true) do |form| %>
   <div class="mb-3">
@@ -87,6 +97,8 @@
   </div>
   <%= form.submit 'Post Comment', class: 'btn btn-primary' %>
 <% end %>
+
+<br>
 
 <h3>All Comments</h3>
 <ul class="list-group">
@@ -98,3 +110,6 @@
     </li>
   <% end %>
 </ul>
+
+<br>
+<br>
