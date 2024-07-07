@@ -50,29 +50,32 @@
       <div class="col-md-4">
         <div class="card text-center mb-4" style="width: 20rem;">
           <div class="card-body">
-            <h5 class="card-title">Looks Like You Are Yet To Be Invited to an Event</h2>
+            <h5 class="card-title">Looks Like You Are Yet To Be Invited to an Event</h5>
           </div>
         </div>
       </div>
-    <% end %>
-    <% @invited_events.each do |event| %>
-      <div class="col-md-4">
-        <div class="card mb-4" style="width: 20rem;">
-          <% if event.image.attached? %>
-            <%= image_tag event.image, class: 'card-img-top', alt: 'Event Image' %>
-          <% else %>
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Event Image">
-          <% end %>
-          <div class="card-body">
-            <h5 class="card-title"><%= event.title %></h5>
-            <p class="card-text"><%= truncate(event.description, length: 100) %></p>
-            <p><strong>Location:</strong> <%= event.location %></p>
-            <p><strong>Start Time:</strong> <%= event.start_time %></p>
-            <p><strong>End Time:</strong> <%= event.end_time %></p>
-            <%= link_to 'Show', event, class: 'btn btn-primary' %>
+    </div>
+  <% else %>
+    <div class="row">
+      <% @invited_events.each do |event| %>
+        <div class="col-md-4">
+          <div class="card mb-4" style="width: 20rem;">
+            <% if event.image.attached? %>
+              <%= image_tag event.image, class: 'card-img-top', alt: 'Event Image' %>
+            <% else %>
+              <img src="https://via.placeholder.com/150" class="card-img-top" alt="Event Image">
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><%= event.title %></h5>
+              <p class="card-text"><%= truncate(event.description, length: 100) %></p>
+              <p><strong>Location:</strong> <%= event.location %></p>
+              <p><strong>Start Time:</strong> <%= event.start_time %></p>
+              <p><strong>End Time:</strong> <%= event.end_time %></p>
+              <%= link_to 'Show', event, class: 'btn btn-primary' %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>

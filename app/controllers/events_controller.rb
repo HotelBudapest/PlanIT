@@ -1,17 +1,22 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :invite]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :invite, :join]
   before_action :authorize_user!, only: [:show, :edit, :update, :destroy]
 
   def index
     @created_events = current_user.created_events
-    @invited_events = current_user.events
+    @invited_events = current_user.events.where.not(creator_id: current_user.id)
   end
 
   def show
     @poll = Poll.new
     @poll_options = @event.polls.includes(:votes)
     @comments = @event.comments.includes(:user)
+    event_user = @event.event_users.find_or_initialize_by(user: current_user)
+    if event_user.token.blank?
+      event_user.token = SecureRandom.hex(10)
+      event_user.save!
+    end
   end
 
   def new
@@ -44,15 +49,27 @@ class EventsController < ApplicationController
   rescue ActiveRecord::InvalidForeignKey => e
     redirect_to events_url, alert: 'Failed to destroy event due to associated records.'
   end
-  
 
   def invite
     user = User.find_by(email: params[:user_email])
     if user && !@event.attendees.include?(user)
-      @event.attendees << user
+      event_user = @event.event_users.find_or_create_by(user: user)
+      event_user.update!(token: SecureRandom.hex(10)) unless event_user.token.present?
+      InviteMailer.with(user: user, event: @event, token: event_user.token).invite_email.deliver_later
       redirect_to @event, notice: "#{user.email} has been invited."
     else
       redirect_to @event, alert: "Unable to invite user."
+    end
+  end  
+
+  def join
+    event_user = @event.event_users.find_by(token: params[:token])
+    if event_user.present?
+      event_user.user = current_user
+      event_user.save!
+      redirect_to @event, notice: 'You have successfully joined the event.'
+    else
+      redirect_to root_path, alert: 'Invalid invitation link.'
     end
   end
 

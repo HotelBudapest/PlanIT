@@ -18,9 +18,34 @@
 
 <br>
 
+<% if @event.creator == current_user %>
+  <div class="mb-3">
+    <label for="invite-link" class="form-label">Invitation Link</label>
+    <div class="input-group">
+      <% token = @event.event_users.find_by(user: current_user)&.token %>
+      <% link = token.present? ? join_event_url(@event, token: token) : '#' %>
+      <input type="text" id="invite-link" class="form-control" readonly value="<%= link %>">
+      <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard()">Copy Link</button>
+    </div>
+  </div>
+<% end %>
+
+<br>
+
+<script>
+function copyToClipboard() {
+  const copyText = document.getElementById("invite-link");
+  copyText.select();
+  document.execCommand("copy");
+  alert("Copied the link: " + copyText.value);
+}
+</script>
+
+<br>
+
 <h2>Attendees</h2>
 <ul class="list-group mb-3">
-  <% @event.attendees.each do |attendee| %>
+  <% @event.attendees.where.not(id: @event.creator_id).each do |attendee| %>
     <li class="list-group-item"><%= attendee.email %></li>
   <% end %>
 </ul>

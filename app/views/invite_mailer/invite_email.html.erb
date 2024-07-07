@@ -1,0 +1,5 @@
+<p>Hello <%= @user.first_name %>,</p>
+<p>You have been invited to the event: <%= @event.title %>.</p>
+<p>Click the link below to join the event:</p>
+<p><%= link_to 'Join Event', join_event_url(@event, token: @token) %></p>
+<p>Thank you!</p>

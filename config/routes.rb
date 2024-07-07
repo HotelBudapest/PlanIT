@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'home#index'
-
-  resources :verifications, only: [:new, :create]
-
+  
   resources :events do
     member do
       post 'invite'
+      get 'join'
     end
     resources :polls, only: [:create, :destroy] do
       resources :poll_options, only: [:new, :create, :edit, :update, :destroy] do
