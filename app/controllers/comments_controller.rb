@@ -13,6 +13,12 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment = @event.comments.find(params[:id])
+    @comment.destroy
+    redirect_to @event, notice: 'Comment was successfully deleted.'
+  end
+
   private
 
   def set_event
@@ -20,7 +26,7 @@ class CommentsController < ApplicationController
   end
 
   def authorize_user!
-    unless @event.creator == current_user || @event.attendees.include?(current_user)
+    unless @event.creator == current_user || @event.event_users.exists?(user_id: current_user.id)
       redirect_to root_path, alert: 'You are not authorized to perform this action.'
     end
   end

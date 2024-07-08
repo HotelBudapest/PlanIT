@@ -8,7 +8,8 @@ class Event < ApplicationRecord
   has_many :attendees, through: :event_users, source: :user
 
   has_many :comments, dependent: :destroy
-  has_many :votes, through: :poll_options, dependent: :destroy
 
   has_one_attached :image
+
+  validates :location_link, format: { with: /\A(http|https):\/\/[a-zA-Z0-9\-.]+\.[a-z]{2,4}\/?\S*\z/, message: 'must be a valid URL' }, allow_blank: true
 end

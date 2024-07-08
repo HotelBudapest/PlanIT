@@ -5,8 +5,8 @@ class EventsController < ApplicationController
 
   def index
     @created_events = current_user.created_events
-    @invited_events = current_user.events.where.not(creator_id: current_user.id)
-  end
+    @invited_events = current_user.events.where.not(creator: current_user)
+  end  
 
   def show
     @poll = Poll.new
@@ -17,7 +17,7 @@ class EventsController < ApplicationController
       event_user.token = SecureRandom.hex(10)
       event_user.save!
     end
-  end
+  end  
 
   def new
     @event = Event.new
@@ -44,11 +44,23 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    @event.destroy
+    ActiveRecord::Base.transaction do
+      @event.polls.each do |poll|
+        poll.poll_options.each do |option|
+          option.votes.destroy_all
+        end
+        poll.destroy
+      end
+      @event.comments.destroy_all
+      @event.event_users.destroy_all
+      @event.destroy
+    end
+  
     redirect_to events_url, notice: 'Event was successfully destroyed.'
-  rescue ActiveRecord::InvalidForeignKey => e
+  rescue ActiveRecord::RecordInvalid => e
     redirect_to events_url, alert: 'Failed to destroy event due to associated records.'
   end
+  
 
   def invite
     user = User.find_by(email: params[:user_email])
@@ -60,13 +72,12 @@ class EventsController < ApplicationController
     else
       redirect_to @event, alert: "Unable to invite user."
     end
-  end  
-
+  end
+  
   def join
     event_user = @event.event_users.find_by(token: params[:token])
     if event_user.present?
-      event_user.user = current_user
-      event_user.save!
+      event_user.update!(user: current_user)
       redirect_to @event, notice: 'You have successfully joined the event.'
     else
       redirect_to root_path, alert: 'Invalid invitation link.'
@@ -80,26 +91,27 @@ class EventsController < ApplicationController
   end
 
   def authorize_user!
-    unless @event.creator == current_user || @event.attendees.include?(current_user)
+    unless @event.creator == current_user || @event.event_users.exists?(user_id: current_user.id)
       redirect_to root_path, alert: 'You are not authorized to view this event.'
     end
-  end
+  end  
 
   def event_params
     params.require(:event).permit(
-      :title, 
-      :description, 
-      :location, 
-      :start_time, 
-      :end_time, 
-      :image, 
+      :title,
+      :description,
+      :location,
+      :location_link,
+      :start_time,
+      :end_time,
+      :image,
       polls_attributes: [
-        :id, 
-        :title, 
-        :_destroy, 
+        :id,
+        :title,
+        :_destroy,
         poll_options_attributes: [
-          :id, 
-          :title, 
+          :id,
+          :title,
           :_destroy
         ]
       ]

@@ -5,7 +5,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4">
-      <div class="card text-center mb-4" style="width: 20rem;">
+      <div class="card text-center mb-4 event-tile" style="width: 20rem;">
         <div class="card-body">
           <h5 class="card-title"><% if @created_events.empty? %>Create Your First Event<% else %>Create Another Event<% end %></h5>
           <p class="card-text"><% if @created_events.empty? %>It looks like you have no events. Click the button below to create one.<% else %>Click the button below to create another event.<% end %></p>
@@ -15,7 +15,7 @@
     </div>
     <% @created_events.each do |event| %>
       <div class="col-md-4">
-        <div class="card mb-4" style="width: 20rem;">
+        <div class="card mb-4 event-tile" style="width: 20rem;">
           <% if event.image.attached? %>
             <%= image_tag event.image, class: 'card-img-top', alt: event.title %>
           <% else %>
@@ -29,7 +29,7 @@
             <p><strong>End Time:</strong> <%= event.end_time %></p>
             <%= link_to 'Show', event, class: 'btn btn-primary' %>
             <%= link_to 'Edit', edit_event_path(event), class: 'btn btn-secondary' %>
-            <%= link_to 'Destroy', event, data: { confirm: 'Are you sure?', turbo_method: :delete}, class: 'btn btn-danger' %>
+            <%= link_to 'Destroy', event, data: { confirm: 'Are you sure?', turbo_method: :delete }, class: 'btn btn-danger' %>
           </div>
         </div>
       </div>
@@ -39,7 +39,6 @@
 
 <br>
 
-
 <h1>Events I'm Invited To</h1>
 
 <br>
@@ -48,7 +47,7 @@
   <% if @invited_events.empty? %>
     <div class="row">
       <div class="col-md-4">
-        <div class="card text-center mb-4" style="width: 20rem;">
+        <div class="card text-center mb-4 event-tile" style="width: 20rem;">
           <div class="card-body">
             <h5 class="card-title">Looks Like You Are Yet To Be Invited to an Event</h5>
           </div>
@@ -59,7 +58,7 @@
     <div class="row">
       <% @invited_events.each do |event| %>
         <div class="col-md-4">
-          <div class="card mb-4" style="width: 20rem;">
+          <div class="card mb-4 event-tile" style="width: 20rem;">
             <% if event.image.attached? %>
               <%= image_tag event.image, class: 'card-img-top', alt: 'Event Image' %>
             <% else %>

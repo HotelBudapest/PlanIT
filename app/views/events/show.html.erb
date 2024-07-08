@@ -1,9 +1,16 @@
 <h1><%= @event.title %></h1>
 <p><%= @event.description %></p>
 
-<p><strong>Location:</strong> <%= @event.location %></p>
+<p><strong>Location:</strong> 
+  <% if @event.location_link.present? %>
+    <a href="<%= @event.location_link %>" target="_blank"><%= @event.location %></a>
+  <% else %>
+    <%= @event.location %>
+  <% end %>
+</p>
 <p><strong>Start Time:</strong> <%= @event.start_time %></p>
 <p><strong>End Time:</strong> <%= @event.end_time %></p>
+<p><strong>Created by:</strong> <%= "#{@event.creator.first_name} #{@event.creator.last_name} " %><span class="text-muted" style="font-size: 0.9em;">(<%= @event.creator.email %>)</span></p>
 
 <br>
 
@@ -46,7 +53,10 @@ function copyToClipboard() {
 <h2>Attendees</h2>
 <ul class="list-group mb-3">
   <% @event.attendees.where.not(id: @event.creator_id).each do |attendee| %>
-    <li class="list-group-item"><%= attendee.email %></li>
+    <li class="list-group-item">
+      <strong><%= attendee.first_name %> <%= attendee.last_name %></strong>
+      <span class="text-muted">(<%= attendee.email %>)</span>
+    </li>
   <% end %>
 </ul>
 
@@ -94,23 +104,31 @@ function copyToClipboard() {
     <div class="card-body">
       <h5 class="card-title d-flex justify-content-between align-items-center">
         <%= poll.title %>
-        <%= link_to 'Delete', event_poll_path(@event, poll), method: :delete, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+        <% if @event.creator == current_user %>
+          <%= link_to 'Delete', event_poll_path(@event, poll), method: :delete, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+        <% end %>
         <%= link_to 'Add Option', new_event_poll_poll_option_path(@event, poll), class: 'btn btn-secondary btn-sm' %>
       </h5>
       <ul class="list-group list-group-flush">
         <% poll.poll_options.each do |option| %>
           <li class="list-group-item">
             <%= option.title %>
-            <%= button_to 'Vote', event_poll_poll_option_votes_path(@event, poll, option), method: :post, data: { turbo_method: :post }, class: 'btn btn-primary btn-sm' %>
+            <%= form_with(model: [@event, poll, option, Vote.new], local: true, method: :post, url: event_poll_poll_option_votes_path(@event, poll, option)) do |form| %>
+              <%= form.hidden_field :poll_option_id, value: option.id %>
+              <%= form.submit 'Vote', class: 'btn btn-primary btn-sm' %>
+            <% end %>
             <span class="badge bg-secondary"><%= option.votes.count %> votes</span>
-            <%= link_to 'Edit', edit_event_poll_poll_option_path(@event, poll, option), class: 'btn btn-warning btn-sm' %>
-            <%= link_to 'Delete', event_poll_poll_option_path(@event, poll, option), method: :delete, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+            <% if @event.creator == current_user %>
+              <%= link_to 'Edit', edit_event_poll_poll_option_path(@event, poll, option), class: 'btn btn-warning btn-sm' %>
+              <%= link_to 'Delete', event_poll_poll_option_path(@event, poll, option), method: :delete, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+            <% end %>
           </li>
         <% end %>
       </ul>
     </div>
   </div>
 <% end %>
+
 
 <br>
 
@@ -129,7 +147,8 @@ function copyToClipboard() {
 <ul class="list-group">
   <% @event.comments.each do |comment| %>
     <li class="list-group-item">
-      <strong><%= comment.user.email %></strong>
+      <strong><%= comment.user.first_name %> <%= comment.user.last_name %></strong>
+      <span class="text-muted" style="font-size: 0.9em;">(<%= comment.user.email %>)</span>
       <span class="text-muted" style="font-size: 0.9em;">(<%= comment.created_at.strftime("%b %d, %Y %I:%M %p") %>)</span>
       <div><%= comment.content %></div>
     </li>

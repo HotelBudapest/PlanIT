@@ -25,7 +25,7 @@ class PollsController < ApplicationController
   end
 
   def authorize_user!
-    unless @event.creator == current_user || @event.attendees.include?(current_user)
+    unless @event.creator == current_user || @event.attendees.exists?(id: current_user.id)
       redirect_to root_path, alert: 'You are not authorized to perform this action.'
     end
   end
