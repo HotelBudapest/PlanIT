@@ -6,6 +6,11 @@ Rails.application.routes.draw do
     member do
       post 'invite'
       get 'join'
+      get 'details'
+      get 'invite'
+      get 'polls'
+      get 'comments'
+      get 'announcements'
     end
     resources :polls, only: [:create, :destroy] do
       resources :poll_options, only: [:new, :create, :edit, :update, :destroy] do

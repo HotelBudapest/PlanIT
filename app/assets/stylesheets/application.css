@@ -16,130 +16,177 @@
 
 /* Comment styles */
 .comment {
-    padding: 10px;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-  }
-  
-  .comment-content {
-    word-wrap: break-word;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-  }
-  
-  /* Page background and text color */
-  body {
-    background-color: #000;
-    color: #fff;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Event title font */
-  .event-title {
-    font-family: 'Trebuchet MS', sans-serif;
-    color: #000; /* Adjust the color if necessary */
-  }
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
 
-  .polls-card .card,
-  .comments-card .card,
-  .invite-users-card .card {
-    border: 3px solid #000; /* Adjust the border thickness and color as needed */
-    border-radius: 10px; /* Optional: Adjust the border radius */
-   }
-   /* Add hover effect for cards and tiles in the show page */
+.comment-content {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+/* Page background and text color */
+body {
+  background-color: #000000;
+  color: #fff;
+}
+
+/* Event title font */
+.event-title {
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.event-details-card .card,
+.polls-card .card,
+.comments-card .card,
+.invite-users-card .card {
+  border: 0px solid #000;
+  border-radius: 30px;
+}
+
+
+/* Base card styles */
+.card {
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for the effects */
+  overflow: hidden; /* Ensure the pseudo-element stays within the card */
+}
+
+/* Hover effect for cards */
 .card:hover {
-    transform: scale(1.05); /* Slight zoom-in effect */
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* White fading outline */
-    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for the effects */
-  }
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #ffffff;
+}
 
-  .card {
-    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for the effects */
-  }
-  
-  
-  /* Card background colors */
-  .event-details-card .card {
-    background-color: #e2b0cf !important;
-  }
-  
-  .invite-users-card .card {
-    background-color: #78beb3 !important;
-  }
-  
-  .polls-card .card {
-    background-color: #a9db1b !important;
-  }
-  
-  .comments-card .card {
-    background-color: #66ccff !important;
-  }
-  
-  /* Text color inside the cards */
-  .card .card-title,
-  .card .card-text,
-  .card .form-label,
-  .card .list-group-item {
-    color: #000;
-  }
-  
-  /* Form inputs and buttons */
-  .form-control {
-    background-color: #fff;
-    color: #000;
-  }
-  
-  .btn-primary {
-    background-color: #fff;
-    color: #000;
-    border-color: #fff;
-  }
-  
-  .btn-primary:hover {
-    background-color: #ccc;
-    color: #000;
-    border-color: #ccc;
-  }
-  
-  .btn-outline-secondary {
-    color: #000;
-    border-color: #000;
-  }
-  
-  .btn-outline-secondary:hover {
-    background-color: #000;
-    color: #fff;
-  }
+.card-title {  
+  font-family: "Sofia Sans Extra Condensed", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 2rem;
+}
 
-  .custom-progress {
-    height: 1.5rem; /* Adjust the height of the progress bar */
-    background-color: #a9db1b !important; /* Background color of the progress bar (same as the polls card) */
-    border: 2px solid #000; /* Add a border to create an outline around the progress bar */
-    border-radius: 5px; /* Optional: Adjust the border radius to match the progress bar */
-    overflow: hidden; /* Ensure the progress bar stays within the outline */
-  }
-  
-  .custom-progress-bar {
-    color: #000 !important; /* Text color inside the progress bar */
-    text-align: center; /* Center the text */
-    line-height: 1.5rem !important; /* Ensure the text is vertically centered */
-    background-color: #000 !important; /* Fill color of the progress bar */
-  }
-  
-  /* Card background colors */
-  .polls-card .card {
-    background-color: #abda2a !important; /* Make sure inner card matches the outer card */
-  }
-  
-  /* Specific background color for list-group items */
-  .polls-card .list-group-item {
-    background-color: #bfe065 !important; /* Ensure list group items also have the same background color */
-  }
-  
-  /* Ensure buttons inside the list-group-item are styled appropriately */
-  .polls-card .list-group-item .btn {
-    background-color: #ffcc00; /* Example button color */
-    border-color: #ffcc00;
-    color: #000;
-  }
+.event-details-card .card-body {
+  background-color: #f78837 !important;
+  font-size: larger;
+}
+
+.event-details-card .card-title {
+  font-family: "Sofia Sans Extra Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 10rem;
+  background-color: #f78837 !important;
+}
+
+.invite-users-card .card {
+  background-color: #D07597 !important;
+}
+
+.polls-card .card {
+  background-color: #a9db1b !important;
+}
+
+.comments-card .card {
+  background-color: #66ccff !important;
+}
+
+.invite-users-card .card-title {
+  font-family: "Sofia Sans Extra Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 10rem;
+  background-color: #D07597 !important;
+}
+
+.polls-card .card-title {
+  font-family: "Sofia Sans Extra Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 10rem;
+  background-color: #a9db1b !important;
+}
+
+.comments-card .card-title {
+  font-family: "Sofia Sans Extra Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 10rem;
+  background-color: #66ccff !important;
+}
+
+/* Text color inside the cards */
+.card .card-title,
+.card .card-text,
+.card .form-label,
+.card .list-group-item {
+  color: #000;
+}
+
+/* Form inputs and buttons */
+.form-control {
+  background-color: #fff;
+  color: #000;
+}
+
+.btn-primary {
+  background-color: #a9db1b;
+  color: #000;
+  border-color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #000;
+  color: #a9db1b;
+  border-color: #ccc;
+}
+
+.btn-outline-secondary {
+  color: #000;
+  border-color: #000;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.custom-progress {
+  height: 1.5rem; /* Adjust the height of the progress bar */
+  background-color: #a9db1b !important; /* Background color of the progress bar (same as the polls card) */
+  border: 2px solid #000; /* Add a border to create an outline around the progress bar */
+  border-radius: 5px; /* Optional: Adjust the border radius to match the progress bar */
+  overflow: hidden; /* Ensure the progress bar stays within the outline */
+}
+
+.custom-progress-bar {
+  color: #000 !important; /* Text color inside the progress bar */
+  text-align: center; /* Center the text */
+  line-height: 1.5rem !important; /* Ensure the text is vertically centered */
+  background-color: #000 !important; /* Fill color of the progress bar */
+}
+
+/* Card background colors */
+.polls-card .card {
+  background-color: #abda2a !important; /* Make sure inner card matches the outer card */
+}
+
+/* Specific background color for list-group items */
+.polls-card .list-group-item {
+  background-color: #bfe065 !important; /* Ensure list group items also have the same background color */
+}
+
+/* Ensure buttons inside the list-group-item are styled appropriately */
+.polls-card .list-group-item .btn {
+  background-color: #ffcc00; /* Example button color */
+  border-color: #ffcc00;
+  color: #000;
+}

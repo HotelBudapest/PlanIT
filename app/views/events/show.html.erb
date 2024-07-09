@@ -109,8 +109,8 @@
         <h3 class="mt-4">Existing Polls</h3>
         <% @poll_options.each do |poll| %>
           <div class="card mb-3">
-            <div class="card-body">
-              <h5 class="card-title d-flex justify-content-between align-items-center">
+            <div class="card-body" style="border: 1.5px solid #000; border-radius: 30px;">
+              <h5 class="card-title d-flex justify-content-between align-items-center" style="  font-family: 'Sofia Sans Extra Condensed', sans-serif; font-optical-sizing: auto; font-weight: bold; font-style: normal;font-size: 2rem;">
                 <%= poll.title %>
                 <% if @event.creator == current_user %>
                   <%= link_to 'Delete', event_poll_path(@event, poll), method: :delete, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
