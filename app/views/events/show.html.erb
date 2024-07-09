@@ -1,159 +1,178 @@
-<h1><%= @event.title %></h1>
-<p><%= @event.description %></p>
-
-<p><strong>Location:</strong> 
-  <% if @event.location_link.present? %>
-    <a href="<%= @event.location_link %>" target="_blank"><%= @event.location %></a>
-  <% else %>
-    <%= @event.location %>
-  <% end %>
-</p>
-<p><strong>Start Time:</strong> <%= @event.start_time %></p>
-<p><strong>End Time:</strong> <%= @event.end_time %></p>
-<p><strong>Created by:</strong> <%= "#{@event.creator.first_name} #{@event.creator.last_name} " %><span class="text-muted" style="font-size: 0.9em;">(<%= @event.creator.email %>)</span></p>
-
-<br>
-
-<h2>Invite Users</h2>
-<%= form_with(url: invite_event_path(@event), local: true) do %>
-  <div class="mb-3">
-    <%= label_tag :user_email, 'User Email', class: 'form-label' %>
-    <%= text_field_tag :user_email, nil, class: 'form-control' %>
-  </div>
-  <%= submit_tag 'Invite', class: 'btn btn-primary' %>
-<% end %>
-
-<br>
-
-<% if @event.creator == current_user %>
-  <div class="mb-3">
-    <label for="invite-link" class="form-label">Invitation Link</label>
-    <div class="input-group">
-      <% token = @event.event_users.find_by(user: current_user)&.token %>
-      <% link = token.present? ? join_event_url(@event, token: token) : '#' %>
-      <input type="text" id="invite-link" class="form-control" readonly value="<%= link %>">
-      <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard()">Copy Link</button>
-    </div>
-  </div>
-<% end %>
-
-<br>
-
-<script>
-function copyToClipboard() {
-  const copyText = document.getElementById("invite-link");
-  copyText.select();
-  document.execCommand("copy");
-  alert("Copied the link: " + copyText.value);
-}
-</script>
-
-<br>
-
-<h2>Attendees</h2>
-<ul class="list-group mb-3">
-  <% @event.attendees.where.not(id: @event.creator_id).each do |attendee| %>
-    <li class="list-group-item">
-      <strong><%= attendee.first_name %> <%= attendee.last_name %></strong>
-      <span class="text-muted">(<%= attendee.email %>)</span>
-    </li>
-  <% end %>
-</ul>
-
-<br>
-
-<h2>Polls</h2>
-<%= form_with(model: [@event, @poll], local: true) do |form| %>
-  <% if @poll.errors.any? %>
-    <div id="error_explanation">
-      <h4><%= pluralize(@poll.errors.count, "error") %> prohibited this poll from being saved:</h4>
-      <ul>
-        <% @poll.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="mb-3">
-    <%= form.label :title, class: 'form-label' %>
-    <%= form.text_field :title, class: 'form-control' %>
-  </div>
-
-  <div id="poll_options">
-    <%= form.fields_for :poll_options do |option_form| %>
-      <div class="nested-fields mb-3">
-        <%= option_form.label :title, 'Poll Option', class: 'form-label' %>
-        <%= option_form.text_field :title, class: 'form-control' %>
-        <%= option_form.check_box :_destroy %>
-        <%= option_form.label :_destroy, 'Remove', class: 'form-check-label' %>
+<div class="container mt-4">
+  <!-- Event Details Card -->
+  <div class="event-details-card mb-3">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="card-title event-title"><%= @event.title %></h1>
+        <p class="card-text"><%= @event.description %></p>
+        <p class="card-text"><strong>Location:</strong> 
+          <% if @event.location_link.present? %>
+            <a href="<%= @event.location_link %>" target="_blank" style="color: #000;"><%= @event.location %></a>
+          <% else %>
+            <%= @event.location %>
+          <% end %>
+        </p>
+        <p class="card-text"><strong>Start Time:</strong> <%= @event.start_time %></p>
+        <p class="card-text"><strong>End Time:</strong> <%= @event.end_time %></p>
+        <p class="card-text"><strong>Created by:</strong> <%= "#{@event.creator.first_name} #{@event.creator.last_name} " %><span class="text-muted" style="font-size: 0.9em;">(<%= @event.creator.email %>)</span></p>
       </div>
-    <% end %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit 'Save Poll', class: 'btn btn-primary' %>
-  </div>
-<% end %>
-
-<br>
-
-<h2>Existing Polls</h2>
-<% @poll_options.each do |poll| %>
-  <div class="card mb-3">
-    <div class="card-body">
-      <h5 class="card-title d-flex justify-content-between align-items-center">
-        <%= poll.title %>
-        <% if @event.creator == current_user %>
-          <%= link_to 'Delete', event_poll_path(@event, poll), method: :delete, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
-        <% end %>
-        <%= link_to 'Add Option', new_event_poll_poll_option_path(@event, poll), class: 'btn btn-secondary btn-sm' %>
-      </h5>
-      <ul class="list-group list-group-flush">
-        <% poll.poll_options.each do |option| %>
-          <li class="list-group-item">
-            <%= option.title %>
-            <%= form_with(model: [@event, poll, option, Vote.new], local: true, method: :post, url: event_poll_poll_option_votes_path(@event, poll, option)) do |form| %>
-              <%= form.hidden_field :poll_option_id, value: option.id %>
-              <%= form.submit 'Vote', class: 'btn btn-primary btn-sm' %>
-            <% end %>
-            <span class="badge bg-secondary"><%= option.votes.count %> votes</span>
-            <% if @event.creator == current_user %>
-              <%= link_to 'Edit', edit_event_poll_poll_option_path(@event, poll, option), class: 'btn btn-warning btn-sm' %>
-              <%= link_to 'Delete', event_poll_poll_option_path(@event, poll, option), method: :delete, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
     </div>
   </div>
-<% end %>
 
+  <!-- Invite Users, Invite Link, and Attendees Card -->
+  <div class="invite-users-card mb-2">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Invite Users & Attendees</h2>
+        <%= form_with(url: invite_event_path(@event), local: true) do %>
+          <div class="mb-3">
+            <%= label_tag :user_email, 'User Email', class: 'form-label' %>
+            <%= text_field_tag :user_email, nil, class: 'form-control' %>
+          </div>
+          <%= submit_tag 'Invite', class: 'btn btn-primary' %>
+        <% end %>
+        
+        <% if @event.creator == current_user %>
+          <div class="mt-3">
+            <label for="invite-link" class="form-label">Invitation Link</label>
+            <div class="input-group">
+              <% token = @event.event_users.find_by(user: current_user)&.token %>
+              <% link = token.present? ? join_event_url(@event, token: token) : '#' %>
+              <input type="text" id="invite-link" class="form-control" readonly value="<%= link %>">
+              <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard()">Copy Link</button>
+            </div>
+          </div>
+        <% end %>
 
-<br>
-
-<h2>Comments</h2>
-<%= form_with(model: [@event, Comment.new], local: true) do |form| %>
-  <div class="mb-3">
-    <%= form.label :content, 'Add a Comment', class: 'form-label' %>
-    <%= form.text_area :content, class: 'form-control' %>
+        <h3 class="mt-4">Attendees</h3>
+        <ul class="list-group mb-3">
+          <% @event.attendees.where.not(id: @event.creator_id).each do |attendee| %>
+            <li class="list-group-item">
+              <strong><%= attendee.first_name %> <%= attendee.last_name %></strong>
+              <span class="text-muted">(<%= attendee.email %>)</span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
   </div>
-  <%= form.submit 'Post Comment', class: 'btn btn-primary' %>
-<% end %>
 
-<br>
+  <script>
+  function copyToClipboard() {
+    const copyText = document.getElementById("invite-link");
+    copyText.select();
+    document.execCommand("copy");
+    alert("Copied the link: " + copyText.value);
+  }
+  </script>
 
-<h3>All Comments</h3>
-<ul class="list-group">
-  <% @event.comments.each do |comment| %>
-    <li class="list-group-item">
-      <strong><%= comment.user.first_name %> <%= comment.user.last_name %></strong>
-      <span class="text-muted" style="font-size: 0.9em;">(<%= comment.user.email %>)</span>
-      <span class="text-muted" style="font-size: 0.9em;">(<%= comment.created_at.strftime("%b %d, %Y %I:%M %p") %>)</span>
-      <div><%= comment.content %></div>
-    </li>
-  <% end %>
-</ul>
+<!-- Polls and Comments Section -->
+<div class="row mb-2">
+  <!-- Polls Card -->
+  <div class="col-md-6 mb-2 polls-card">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Polls</h2>
+        <%= form_with(model: [@event, @poll], local: true) do |form| %>
+          <% if @poll.errors.any? %>
+            <div id="error_explanation">
+              <h4><%= pluralize(@poll.errors.count, "error") %> prohibited this poll from being saved:</h4>
+              <ul>
+                <% @poll.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-<br>
-<br>
+          <div class="mb-3">
+            <%= form.label :title, class: 'form-label' %>
+            <%= form.text_field :title, class: 'form-control' %>
+          </div>
+
+          <div id="poll_options">
+            <%= form.fields_for :poll_options do |option_form| %>
+              <div class="nested-fields mb-3">
+                <%= option_form.label :title, 'Poll Option', class: 'form-label' %>
+                <%= option_form.text_field :title, class: 'form-control' %>
+                <%= option_form.check_box :_destroy %>
+                <%= option_form.label :_destroy, 'Remove', class: 'form-check-label' %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="actions">
+            <%= form.submit 'Save Poll', class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+
+        <h3 class="mt-4">Existing Polls</h3>
+        <% @poll_options.each do |poll| %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <h5 class="card-title d-flex justify-content-between align-items-center">
+                <%= poll.title %>
+                <% if @event.creator == current_user %>
+                  <%= link_to 'Delete', event_poll_path(@event, poll), method: :delete, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+                <% end %>
+                <%= link_to 'Add Option', new_event_poll_poll_option_path(@event, poll), class: 'btn btn-secondary btn-sm' %>
+              </h5>
+              <ul class="list-group list-group-flush">
+                <% total_votes = poll.poll_options.sum { |option| option.votes.count } %>
+                <% poll.poll_options.each do |option| %>
+                  <li class="list-group-item">
+                    <%= option.title %>
+                    <%= form_with(model: [@event, poll, option, Vote.new], local: true, method: :post, url: event_poll_poll_option_votes_path(@event, poll, option)) do |form| %>
+                      <%= form.hidden_field :poll_option_id, value: option.id %>
+                      <%= form.submit 'Vote', class: 'btn btn-primary btn-sm' %>
+                    <% end %>
+                    <% vote_count = option.votes.count %>
+                    <% percentage = total_votes.zero? ? 0 : (vote_count.to_f / total_votes * 100).round %>
+                    <div class="progress mt-2 custom-progress">
+                      <div class="progress-bar custom-progress-bar" role="progressbar" style="width: <%= percentage %>%;" aria-valuenow="<%= percentage %>" aria-valuemin="0" aria-valuemax="100">
+                        <%= percentage %>%
+                      </div>
+                    </div>
+                    <span class="badge bg-secondary"><%= option.votes.count %> votes</span>
+                    <% if @event.creator == current_user %>
+                      <%= link_to 'Edit', edit_event_poll_poll_option_path(@event, poll, option), class: 'btn btn-warning btn-sm' %>
+                      <%= link_to 'Delete', event_poll_poll_option_path(@event, poll, option), method: :delete, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comments Card -->
+  <div class="col-md-6 mb-2 comments-card">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Comments</h2>
+        <%= form_with(model: [@event, Comment.new], local: true) do |form| %>
+          <div class="mb-3">
+            <%= form.label :content, 'Add a Comment', class: 'form-label' %>
+            <%= form.text_area :content, class: 'form-control' %>
+          </div>
+          <%= form.submit 'Post Comment', class: 'btn btn-primary' %>
+        <% end %>
+
+        <h3 class="mt-4">All Comments</h3>
+        <ul class="list-group">
+          <% @event.comments.each do |comment| %>
+            <li class="list-group-item">
+              <strong><%= comment.user.first_name %> <%= comment.user.last_name %></strong>
+              <span class="text-muted">(<%= comment.user.email %>)</span>
+              <span class="text-muted">(<%= comment.created_at.strftime("%b %d, %Y %I:%M %p") %>)</span>
+              <div><%= comment.content %></div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
