@@ -1,20 +1,28 @@
 <div class="container mt-4">
-  <!-- Event Details Card -->
-  <div class="event-details-card mb-3">
-    <div class="card">
-      <div class="card-body">
-        <h1 class="card-title event-title"><%= @event.title %></h1>
-        <p class="card-text"><%= @event.description %></p>
-        <p class="card-text"><strong>Location:</strong> 
-          <% if @event.location_link.present? %>
-            <a href="<%= @event.location_link %>" target="_blank" style="color: #000;"><%= @event.location %></a>
-          <% else %>
-            <%= @event.location %>
-          <% end %>
-        </p>
-        <p class="card-text"><strong>Start Time:</strong> <%= @event.start_time %></p>
-        <p class="card-text"><strong>End Time:</strong> <%= @event.end_time %></p>
-        <p class="card-text"><strong>Created by:</strong> <%= "#{@event.creator.first_name} #{@event.creator.last_name} " %><span class="text-muted" style="font-size: 0.9em;">(<%= @event.creator.email %>)</span></p>
+  <div class="row mb-2">
+    <!-- Event Title -->
+    <div class="col-md-6 mb-3 d-flex align-items-center" id="title">
+      <h1 class="event-title"><%= @event.title %></h1>
+    </div>
+
+    <!-- Event Description Card -->
+    <div class="col-md-6 mb-3">
+      <div class="event-description-card">
+        <div class="card">
+          <div class="card-body">
+            <p class="card-text"><%= @event.description %></p>
+            <p class="card-text"><strong>Location:</strong> 
+              <% if @event.location_link.present? %>
+                <a href="<%= @event.location_link %>" target="_blank" style="color: #000;"><%= @event.location %></a>
+              <% else %>
+                <%= @event.location %>
+              <% end %>
+            </p>
+            <p class="card-text"><strong>Start Time:</strong> <%= @event.start_time %></p>
+            <p class="card-text"><strong>End Time:</strong> <%= @event.end_time %></p>
+            <p class="card-text"><strong>Created by:</strong> <%= "#{@event.creator.first_name} #{@event.creator.last_name} " %><span class="text-muted" style="font-size: 0.9em;">(<%= @event.creator.email %>)</span></p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

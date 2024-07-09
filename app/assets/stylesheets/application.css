@@ -36,19 +36,21 @@ body {
 
 /* Event title font */
 .event-title {
-  font-family: 'Archivo Black', sans-serif;
-  font-weight: 100;
+  font-family: "Sofia Sans Extra Condensed", sans-serif;
+  font-weight: bold;
   font-style: normal;
+  font-size: 700%;
+  color: #f78837;
 }
 
-.event-details-card .card,
+/* Ensure card border and radius */
+.event-description-card .card,
 .polls-card .card,
 .comments-card .card,
 .invite-users-card .card {
   border: 0px solid #000;
   border-radius: 30px;
 }
-
 
 /* Base card styles */
 .card {
@@ -63,25 +65,9 @@ body {
   box-shadow: 0 0 20px #ffffff;
 }
 
-.card-title {  
-  font-family: "Sofia Sans Extra Condensed", sans-serif;
-  font-weight: bold;
-  font-style: normal;
-  font-size: 2rem;
-}
-
-.event-details-card .card-body {
+.event-description-card .card-body {
   background-color: #f78837 !important;
   font-size: larger;
-}
-
-.event-details-card .card-title {
-  font-family: "Sofia Sans Extra Condensed", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: bold;
-  font-style: normal;
-  font-size: 10rem;
-  background-color: #f78837 !important;
 }
 
 .invite-users-card .card {
@@ -93,33 +79,6 @@ body {
 }
 
 .comments-card .card {
-  background-color: #66ccff !important;
-}
-
-.invite-users-card .card-title {
-  font-family: "Sofia Sans Extra Condensed", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: bold;
-  font-style: normal;
-  font-size: 10rem;
-  background-color: #D07597 !important;
-}
-
-.polls-card .card-title {
-  font-family: "Sofia Sans Extra Condensed", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: bold;
-  font-style: normal;
-  font-size: 10rem;
-  background-color: #a9db1b !important;
-}
-
-.comments-card .card-title {
-  font-family: "Sofia Sans Extra Condensed", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: bold;
-  font-style: normal;
-  font-size: 10rem;
   background-color: #66ccff !important;
 }
 
