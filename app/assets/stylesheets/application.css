@@ -36,10 +36,10 @@ body {
 
 /* Event title font */
 .event-title {
-  font-family: "Sofia Sans Extra Condensed", sans-serif;
+  font-family: "Playwrite GB S", cursive;
   font-weight: bold;
   font-style: normal;
-  font-size: 700%;
+  font-size: 7rem;
   color: #f78837;
 }
 
