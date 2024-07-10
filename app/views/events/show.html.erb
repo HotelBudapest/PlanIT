@@ -1,14 +1,14 @@
 <div class="container mt-4">
-  <div class="row mb-2">
+  <div class="row mb-2 d-flex align-items-stretch">
     <!-- Event Title -->
     <div class="col-md-6 mb-3 d-flex align-items-center" id="title">
       <h1 class="event-title"><%= @event.title %></h1>
     </div>
 
     <!-- Event Description Card -->
-    <div class="col-md-6 mb-3">
-      <div class="event-description-card">
-        <div class="card">
+    <div class="col-md-6 mb-3 d-flex align-items-stretch">
+      <div class="event-description-card flex-grow-1">
+        <div class="card h-100">
           <div class="card-body">
             <p class="card-text"><%= @event.description %></p>
             <p class="card-text"><strong>Location:</strong> 
@@ -26,44 +26,46 @@
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Invite Users, Invite Link, and Attendees Card -->
-  <div class="invite-users-card mb-2">
-    <div class="card">
-      <div class="card-body">
-        <h2 class="card-title">Invite Users & Attendees</h2>
-        <%= form_with(url: invite_event_path(@event), local: true) do %>
-          <div class="mb-3">
-            <%= label_tag :user_email, 'User Email', class: 'form-label' %>
-            <%= text_field_tag :user_email, nil, class: 'form-control' %>
-          </div>
-          <%= submit_tag 'Invite', class: 'btn btn-primary' %>
-        <% end %>
-        
-        <% if @event.creator == current_user %>
-          <div class="mt-3">
-            <label for="invite-link" class="form-label">Invitation Link</label>
-            <div class="input-group">
-              <% token = @event.event_users.find_by(user: current_user)&.token %>
-              <% link = token.present? ? join_event_url(@event, token: token) : '#' %>
-              <input type="text" id="invite-link" class="form-control" readonly value="<%= link %>">
-              <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard()">Copy Link</button>
-            </div>
-          </div>
-        <% end %>
 
-        <h3 class="mt-4">Attendees</h3>
-        <ul class="list-group mb-3">
-          <% @event.attendees.where.not(id: @event.creator_id).each do |attendee| %>
-            <li class="list-group-item">
-              <strong><%= attendee.first_name %> <%= attendee.last_name %></strong>
-              <span class="text-muted">(<%= attendee.email %>)</span>
-            </li>
-          <% end %>
-        </ul>
+<!-- Invite Users, Invite Link, and Attendees Card -->
+<div class="invite-users-card mb-2">
+  <div class="card">
+    <div class="card-body">
+      <h2 class="invite-title">Invite Users & Attendees</h2>
+      <%= form_with(url: invite_event_path(@event), local: true) do %>
+        <div class="mb-3">
+          <%= label_tag :user_email, 'User Email', class: 'form-label' %>
+          <%= text_field_tag :user_email, nil, class: 'form-control' %>
+        </div>
+        <%= submit_tag 'Invite', class: 'btn btn-primary' %>
+      <% end %>
+      
+      <% if @event.creator == current_user %>
+        <div class="mt-3">
+          <label for="invite-link" class="form-label">Invitation Link</label>
+          <div class="input-group">
+            <% token = @event.event_users.find_by(user: current_user)&.token %>
+            <% link = token.present? ? join_event_url(@event, token: token) : '#' %>
+            <input type="text" id="invite-link" class="form-control" readonly value="<%= link %>">
+            <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard()">Copy Link</button>
+          </div>
+        </div>
+      <% end %>
+
+      <h3 class="mt-4">Attendees</h3>
+      <div class="d-flex flex-wrap">
+        <% @event.attendees.where.not(id: @event.creator_id).each do |attendee| %>
+          <button type="button" class="btn btn-secondary btn-sm me-2 mb-2">
+            <strong><%= attendee.first_name %> <%= attendee.last_name %></strong> (<%= attendee.email %>)
+          </button>
+        <% end %>
       </div>
     </div>
   </div>
+</div>
+
 
   <script>
   function copyToClipboard() {
@@ -73,14 +75,14 @@
     alert("Copied the link: " + copyText.value);
   }
   </script>
-
-<!-- Polls and Comments Section -->
+  
+  <!-- Polls and Comments Section -->
 <div class="row mb-2">
   <!-- Polls Card -->
   <div class="col-md-6 mb-2 polls-card">
     <div class="card">
       <div class="card-body">
-        <h2 class="card-title">Polls</h2>
+        <h2 class="poll-title">Polls</h2>
         <%= form_with(model: [@event, @poll], local: true) do |form| %>
           <% if @poll.errors.any? %>
             <div id="error_explanation">
@@ -118,13 +120,19 @@
         <% @poll_options.each do |poll| %>
           <div class="card mb-3">
             <div class="card-body" style="border: 1.5px solid #000; border-radius: 30px;">
-              <h5 class="card-title d-flex justify-content-between align-items-center" style="  font-family: 'Sofia Sans Extra Condensed', sans-serif; font-optical-sizing: auto; font-weight: bold; font-style: normal;font-size: 2rem;">
-                <%= poll.title %>
-                <% if @event.creator == current_user %>
-                  <%= link_to 'Delete', event_poll_path(@event, poll), method: :delete, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
-                <% end %>
-                <%= link_to 'Add Option', new_event_poll_poll_option_path(@event, poll), class: 'btn btn-secondary btn-sm' %>
-              </h5>
+              <div class="row">
+                <div class="col-9">
+                  <h5 class="card-title" style="font-family: 'Sofia Sans Extra Condensed', sans-serif; font-optical-sizing: auto; font-weight: bold; font-style: normal; font-size: 2rem;">
+                    <%= poll.title %>
+                  </h5>
+                </div>
+                <div class="col-3 text-end">
+                  <% if @event.creator == current_user %>
+                    <%= link_to 'Delete', event_poll_path(@event, poll), method: :delete, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm mb-2' %>
+                  <% end %>
+                  <%= link_to 'Add Option', new_event_poll_poll_option_path(@event, poll), class: 'btn btn-secondary btn-sm' %>
+                </div>
+              </div>
               <ul class="list-group list-group-flush">
                 <% total_votes = poll.poll_options.sum { |option| option.votes.count } %>
                 <% poll.poll_options.each do |option| %>
@@ -143,7 +151,7 @@
                     </div>
                     <span class="badge bg-secondary"><%= option.votes.count %> votes</span>
                     <% if @event.creator == current_user %>
-                      <%= link_to 'Edit', edit_event_poll_poll_option_path(@event, poll, option), class: 'btn btn-warning btn-sm' %>
+                      <%= link_to 'Edit', edit_event_poll_poll_option_path(@event, poll, option), class: 'btn btn-warning btn-sm me-2' %>
                       <%= link_to 'Delete', event_poll_poll_option_path(@event, poll, option), method: :delete, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
                     <% end %>
                   </li>
@@ -160,7 +168,7 @@
   <div class="col-md-6 mb-2 comments-card">
     <div class="card">
       <div class="card-body">
-        <h2 class="card-title">Comments</h2>
+        <h2 class="comment-title">Comments</h2>
         <%= form_with(model: [@event, Comment.new], local: true) do |form| %>
           <div class="mb-3">
             <%= form.label :content, 'Add a Comment', class: 'form-label' %>
@@ -184,3 +192,4 @@
     </div>
   </div>
 </div>
+
