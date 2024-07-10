@@ -1,136 +1,237 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
-
- .row.d-flex.align-items-stretch {
-  display: flex;
+.container {
+  perspective: 1000px;
 }
 
-#title, .event-description-card {
-  display: flex;
-  align-items: stretch;
-}
-
-.event-description-card .card {
-  flex-grow: 1;
-}
-
-/* Comment styles */
-.comment {
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-  background-color: #f9f9f9;
-}
-
-.comment-content {
-  word-wrap: break-word;
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-}
-
-/* Page background and text color */
 body {
   background-color: #000000;
   color: #fff;
 }
 
-/* Event title font */
 .event-title {
+  color: #f78837;
   font-family: "Playwrite GB S", cursive;
   font-weight: bold;
   font-style: normal;
-  font-size: 7rem;
-  color: #f78837;
+  font-size: 3rem;
 }
 
-.invite-title {
-  font-family: "Playwrite GB S", cursive;
-  font-weight: bolder;
-  font-style: normal;
-  font-size: 3rem;
-  color: #000;
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.poll-title {
-  font-family: "Playwrite GB S", cursive;
-  font-weight: bolder;
-  font-style: normal;
-  font-size: 3rem;
-  color: #000;
+
+.card {
 }
-.comment-title {
+
+.back-button{
   font-family: "Playwrite GB S", cursive;
-  font-weight: bolder;
+  font-weight: light;
+  background-color: #000000;
+  color: white;
+  border-radius: 0.5rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000000;
+  border-bottom: 1px solid #ffffff17;
+}
+
+.card-title {
+  margin: 0;
+  font-family: "Playwrite GB S", cursive;
+  font-weight: bold;
   font-style: normal;
-  font-size: 3rem;
+  font-size: 2rem;
   color: #000;
 }
 
-/* Ensure card border and radius */
-.event-description-card .card,
-.polls-card .card,
-.comments-card .card,
-.invite-users-card .card {
+/* Card Content Styling */
+.card-content {
+  display: none;
+  padding: 20px;
+  background-color: #fff;
+  color: #000;
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: calc(100vh - 100px); /* Adjust height to fit within viewport */
+}
+
+/* Event Description Card Specific Styles */
+.event-description-card .card-title {
+  background-color: #f78837;
+  color: #000000;
+}
+
+.event-description-card{
+  width: 80%;
+  max-width: 50rem;
+  margin-bottom: -46rem;
+  height: 50rem;
+  cursor: pointer;
+  transition: transform 0.5s, opacity 1.5s, width 0.5s, height 0.5s;
+  transform-style: preserve-3d;
+  background-color: #fff;
   border: 0px solid #000;
   border-radius: 30px;
+  overflow: hidden;
+  background-color: #f78837;
 }
 
-/* Base card styles */
-.card {
-  position: relative;
-  transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for the effects */
-  overflow: hidden; /* Ensure the pseudo-element stays within the card */
+.event-description-card .card-header {
+  background-color: #f78837 !important;
 }
 
-/* Hover effect for cards */
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px #ffffff;
-}
-
-.event-description-card .card-body {
+.event-description-card .card-content {
   background-color: #f78837 !important;
   font-size: calc(1vw + 0.5rem);
+  overflow-y: auto;
 }
 
-.invite-users-card .card {
+/* Invite Users Card Specific Styles */
+.invite-users-card .card-title {
+  background-color: #D07597;
+  color: #000000;
+}
+
+.invite-users-card {
+
+  width: 80%;
+  max-width: 50rem;
+  margin-bottom: -46rem; /* Overlap the cards */
+  height: 50rem;
+  cursor: pointer;
+  transition: transform 0.5s, opacity 1.5s, width 0.5s, height 0.5s;
+  transform-style: preserve-3d;
+  background-color: #fff;
+  border: 0px solid #000;
+  border-radius: 30px;
+  overflow: hidden;
+  margin-left: 5rem;
+  background-color: #D07597;
+}
+
+.invite-users-card .card-header {
   background-color: #D07597 !important;
 }
 
-.polls-card .card {
+.invite-users-card .card-content {
+  background-color: #D07597 !important;
+  overflow-y: auto;
+}
+
+/* Polls Card Specific Styles */
+.polls-card .card-title {
+  background-color: #a9db1b;
+  color: #000000;
+}
+
+.polls-card {
+
+  width: 80%;
+  max-width: 50rem;
+  margin-bottom: -46rem; /* Overlap the cards */
+  height: 50rem;
+  cursor: pointer;
+  transition: transform 0.5s, opacity 1.5s, width 0.5s, height 0.5s;
+  transform-style: preserve-3d;
+  background-color: #fff;
+  border: 0px solid #000;
+  border-radius: 30px;
+  overflow: hidden;
+  margin-left: 10rem;
   background-color: #a9db1b !important;
 }
 
-.comments-card .card {
+
+.polls-card .card-header {
+  background-color: #a9db1b !important;
+}
+
+.polls-card .card-content {
+  background-color: #a9db1b !important;
+  overflow-y: auto;
+}
+
+/* Comments Card Specific Styles */
+.comments-card .card-title {
+  background-color: #66ccff;
+  color: #000;
+}
+
+.comments-card{
+
+  width: 80%;
+  max-width: 50rem;
+  margin-bottom: -46rem; /* Overlap the cards */
+  height: 50rem;
+  cursor: pointer;
+  transition: transform 0.5s, opacity 1.5s, width 0.5s, height 0.5s;
+  transform-style: preserve-3d;
+  background-color: #fff;
+  border: 0px solid #000;
+  border-radius: 30px;
+  overflow: hidden;
+  margin-left: 15rem;
   background-color: #66ccff !important;
 }
 
-/* Text color inside the cards */
-.card .card-title,
-.card .card-text,
-.card .form-label,
-.card .list-group-item {
-  color: #000;
+
+.comments-card .card-header {
+  background-color: #66ccff !important;
 }
 
-/* Form inputs and buttons */
-.form-control {
-  background-color: #fff;
-  color: #000;
+.comments-card .card-content {
+  background-color: #66ccff !important;
+  overflow-y: auto;
 }
 
+/* Active Card Styles */
+.card.active {
+  transform: translateY(-6rem) rotateX(0deg) scale(1.1);
+  margin-left: 0;
+  transition: transform 0.5s, margin-left 0.5s;
+  z-index: 10;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.card.active .card-content {
+  display: block;
+  overflow-y: auto; /* Ensure vertical scrolling when expanded */
+  max-height: calc(100vh - 60px); /* Adjust height to fit within viewport */
+}
+
+/* Non-Active Card Styles */
+
+.card:not(.active) .back-button{
+  opacity: 0;
+}
+
+/* Progress Bar Styles */
+.custom-progress {
+  height: 1.5rem; /* Adjust the height of the progress bar */
+  background-color: #a9db1b !important; /* Background color of the progress bar (same as the polls card) */
+  border: 2px solid #000; /* Add a border to create an outline around the progress bar */
+  border-radius: 5px; /* Optional: Adjust the border radius to match the progress bar */
+  overflow: hidden; /* Ensure the progress bar stays within the outline */
+}
+
+.custom-progress-bar {
+  color: #000 !important; /* Text color inside the progress bar */
+  text-align: center; /* Center the text */
+  line-height: 1.5rem !important; /* Ensure the text is vertically centered */
+  background-color: #000 !important; /* Fill color of the progress bar */
+}
+
+.filler-text {
+  opacity: 0;
+}
+
+/* Button Styles */
 .btn-primary {
   background-color: #a9db1b;
   color: #000;
@@ -152,35 +253,20 @@ body {
   background-color: #000;
   color: #fff;
 }
+@media (max-width: 767px) {
+  .event-description-card{
+    margin-left: 0;
+    margin-bottom: -44rem;
+  }
+  .invite-users-card{
+    margin-left: 1rem;
+    margin-bottom: -42rem;
+  }
+  .polls-card{
+    margin-left: 2rem;
+  }
+  .comments-card {
+    margin-left: 3rem;
+  }
 
-.custom-progress {
-  height: 1.5rem; /* Adjust the height of the progress bar */
-  background-color: #a9db1b !important; /* Background color of the progress bar (same as the polls card) */
-  border: 2px solid #000; /* Add a border to create an outline around the progress bar */
-  border-radius: 5px; /* Optional: Adjust the border radius to match the progress bar */
-  overflow: hidden; /* Ensure the progress bar stays within the outline */
-}
-
-.custom-progress-bar {
-  color: #000 !important; /* Text color inside the progress bar */
-  text-align: center; /* Center the text */
-  line-height: 1.5rem !important; /* Ensure the text is vertically centered */
-  background-color: #000 !important; /* Fill color of the progress bar */
-}
-
-/* Card background colors */
-.polls-card .card {
-  background-color: #abda2a !important; /* Make sure inner card matches the outer card */
-}
-
-/* Specific background color for list-group items */
-.polls-card .list-group-item {
-  background-color: #bfe065 !important; /* Ensure list group items also have the same background color */
-}
-
-/* Ensure buttons inside the list-group-item are styled appropriately */
-.polls-card .list-group-item .btn {
-  background-color: #ffcc00; /* Example button color */
-  border-color: #ffcc00;
-  color: #000;
 }
