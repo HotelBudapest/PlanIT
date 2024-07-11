@@ -8,10 +8,10 @@ body {
 }
 
 .event-title {
-  color: #f78837;
-  font-weight: bolder;
+  color: white;
+  font-weight: lighter;
   font-style: normal;
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 .card-stack {
@@ -325,7 +325,6 @@ body {
   -webkit-background-clip: text;
   color: transparent;
   animation: spiral-colors 3s infinite linear;
-
 }
 
 .navbar .navbar-title-it {
