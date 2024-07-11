@@ -1,4 +1,4 @@
-<h1>My Created Events</h1>
+<h1>My Created <span class="eventWord">Events</span></h1>
 
 <br>
 
@@ -7,8 +7,8 @@
     <div class="col-md-4">
       <div class="card text-center mb-4 event-tile" style="width: 20rem;">
         <div class="card-body">
-          <h5 class="card-title"><% if @created_events.empty? %>Create Your First Event<% else %>Create Another Event<% end %></h5>
-          <p class="card-text"><% if @created_events.empty? %>It looks like you have no events. Click the button below to create one.<% else %>Click the button below to create another event.<% end %></p>
+          <h5 class="card-title"><% if @created_events.empty? %>Create Your First <span class="eventWord">Event</span><% else %>Create Another <span class="eventWord">Event<% end %></h5>
+          <br>
           <%= link_to 'Create Event', new_event_path, class: 'btn btn-primary' %>
         </div>
       </div>
@@ -23,6 +23,7 @@
           <% end %>
           <div class="card-body">
             <h5 class="card-title"><%= event.title %></h5>
+            <br>
             <p class="card-text"><%= truncate(event.description, length: 100) %></p>
             <p><strong>Location:</strong> <%= event.location %></p>
             <p><strong>Start Time:</strong> <%= event.start_time %></p>
@@ -39,7 +40,7 @@
 
 <br>
 
-<h1>Events I'm Invited To</h1>
+<h1><span class="eventWord">Events</span> I'm Invited To</h1>
 
 <br>
 
@@ -66,6 +67,7 @@
             <% end %>
             <div class="card-body">
               <h5 class="card-title"><%= event.title %></h5>
+              <br>
               <p class="card-text"><%= truncate(event.description, length: 100) %></p>
               <p><strong>Location:</strong> <%= event.location %></p>
               <p><strong>Start Time:</strong> <%= event.start_time %></p>

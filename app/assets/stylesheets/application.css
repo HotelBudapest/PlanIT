@@ -9,19 +9,15 @@ body {
 
 .event-title {
   color: #f78837;
-  font-family: "Playwrite GB S", cursive;
-  font-weight: bold;
+  font-weight: bolder;
   font-style: normal;
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 .card-stack {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.card {
 }
 
 .back-button{
@@ -80,6 +76,10 @@ body {
   background-color: #f78837;
 }
 
+.event-description-card:hover{
+  transform: scale(1.05);
+}
+
 .event-description-card .card-header {
   background-color: #f78837 !important;
 }
@@ -113,6 +113,12 @@ body {
   background-color: #D07597;
 }
 
+
+.invite-users-card:hover{
+  transform: scale(1.05);
+}
+
+
 .invite-users-card .card-header {
   background-color: #D07597 !important;
 }
@@ -143,6 +149,10 @@ body {
   overflow: hidden;
   margin-left: 10rem;
   background-color: #a9db1b !important;
+}
+
+.polls-card:hover{
+  transform: scale(1.05);
 }
 
 
@@ -178,6 +188,10 @@ body {
   background-color: #66ccff !important;
 }
 
+
+.comments-card:hover{
+  transform: scale(1.05);
+}
 
 .comments-card .card-header {
   background-color: #66ccff !important;
@@ -253,20 +267,94 @@ body {
   background-color: #000;
   color: #fff;
 }
+
 @media (max-width: 767px) {
   .event-description-card{
     margin-left: 0;
     margin-bottom: -44rem;
   }
+
+  .event-description-card:hover{
+    transform: scale(1);
+  }
+  
   .invite-users-card{
-    margin-left: 1rem;
+    margin-left: 1.5rem;
     margin-bottom: -42rem;
   }
-  .polls-card{
-    margin-left: 2rem;
-  }
-  .comments-card {
-    margin-left: 3rem;
+
+  .invite-users-card:hover{
+    transform: scale(1);
   }
 
+  .polls-card{
+    margin-left: 3rem;
+  }
+  .polls-card:hover{
+    transform: scale(1);
+  }
+  
+  .comments-card {
+    margin-left: 4.5rem;
+  }
+  .comments-card:hover{
+    transform: scale(1);
+  }  
+
+}
+
+/* General Navbar Styles */
+.navbar {
+  background-color: #343a40;
+}
+
+.navbar .navbar-brand {
+  font-size: 2rem;
+  color: #ffffff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  font-family: "Playwrite GB S", cursive;
+}
+
+.eventWord{
+  font-weight: bold;
+  font-family: "Playwrite GB S", cursive;
+  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46, rgb(190, 190, 190));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: spiral-colors 3s infinite linear;
+
+}
+
+.navbar .navbar-title-it {
+  font-size: 2.8rem;
+  font-family: sans-serif;
+  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(125, 0, 255), #00ba46, rgb(190, 190, 190));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: spiral-colors 3s infinite linear;
+}
+
+/* Spiral Color Animation */
+@keyframes spiral-colors {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 767px) {
+  .navbar .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .navbar .navbar-title-it {
+    font-size: 2rem;
+  }
 }
