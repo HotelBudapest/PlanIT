@@ -38,10 +38,9 @@ body {
 
 .card-title {
   margin: 0;
-  font-family: "Playwrite GB S", cursive;
-  font-weight: bold;
+  font-weight: lighter;
   font-style: normal;
-  font-size: 2rem;
+  font-size: 2.5rem;
   color: #000;
 }
 
@@ -269,9 +268,12 @@ body {
 }
 
 @media (max-width: 767px) {
+  .card-title{
+    font-size: 2rem;
+  }
   .event-description-card{
     margin-left: 0;
-    margin-bottom: -44rem;
+    margin-bottom: -45rem;
   }
 
   .event-description-card:hover{
@@ -280,7 +282,7 @@ body {
   
   .invite-users-card{
     margin-left: 1.5rem;
-    margin-bottom: -42rem;
+    margin-bottom: -45rem;
   }
 
   .invite-users-card:hover{
@@ -304,9 +306,6 @@ body {
 }
 
 /* General Navbar Styles */
-.navbar {
-  background-color: #343a40;
-}
 
 .navbar .navbar-brand {
   font-size: 2rem;
