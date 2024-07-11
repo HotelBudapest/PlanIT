@@ -205,7 +205,7 @@ body {
 .card.active {
   transform: translateY(-6rem) rotateX(0deg) scale(1.1);
   margin-left: 0;
-  transition: transform 0.5s, margin-left 0.5s;
+  transition: transform 0.5s, margin-left 0.5s, opacity 0.7s;
   z-index: 10;
   width: 100%;
   height: 100vh;
@@ -219,6 +219,21 @@ body {
 }
 
 /* Non-Active Card Styles */
+.event-description-card:not(.active){
+  opacity: 0.8;
+}
+
+.invite-users-card:not(.active){
+  opacity: 0.8;
+}
+
+.polls-card:not(.active){
+  opacity: 0.8;
+}
+
+.comments-card:not(.active){
+  opacity: 0.8;
+}
 
 .card:not(.active) .back-button{
   opacity: 0;
@@ -228,8 +243,8 @@ body {
 .custom-progress {
   height: 1.5rem; /* Adjust the height of the progress bar */
   background-color: #a9db1b !important; /* Background color of the progress bar (same as the polls card) */
-  border: 2px solid #000; /* Add a border to create an outline around the progress bar */
-  border-radius: 5px; /* Optional: Adjust the border radius to match the progress bar */
+  border: 1px solid #000; /* Add a border to create an outline around the progress bar */
+  border-radius: 10px; /* Optional: Adjust the border radius to match the progress bar */
   overflow: hidden; /* Ensure the progress bar stays within the outline */
 }
 
@@ -307,6 +322,15 @@ body {
 
 /* General Navbar Styles */
 
+.navbar{
+  opacity: 0.7;
+  transition: opacity 0.3s; 
+}
+
+.navbar:hover{
+  opacity: 1;
+}
+
 .navbar .navbar-brand {
   font-size: 2rem;
   color: #ffffff;
@@ -321,9 +345,15 @@ body {
   font-family: "Playwrite GB S", cursive;
   background: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46, rgb(190, 190, 190));
   background-clip: text;
+  display: inline-block;
+  transition: transform 0.3s ease-in-out; 
   -webkit-background-clip: text;
   color: transparent;
   animation: spiral-colors 3s infinite linear;
+}
+
+.eventWord:hover {
+  transform: scale(1.1);
 }
 
 .navbar .navbar-title-it {

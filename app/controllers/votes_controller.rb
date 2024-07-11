@@ -16,6 +16,15 @@ class VotesController < ApplicationController
     end
   end
 
+  def destroy
+    @vote = @poll_option.votes.find_by(user: current_user)
+    if @vote.destroy
+      redirect_to @poll_option.poll.event, notice: 'Vote was successfully removed.'
+    else
+      redirect_to @poll_option.poll.event, alert: 'There was an error removing your vote.'
+    end
+  end
+
   private
 
   def set_event_and_poll_option

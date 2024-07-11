@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     end
     resources :polls, only: [:create, :destroy] do
       resources :poll_options, only: [:new, :create, :edit, :update, :destroy] do
-        resources :votes, only: [:create]
+        resources :votes, only: [:create, :destroy]
       end
     end
     resources :comments, only: [:create]

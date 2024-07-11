@@ -1,9 +1,10 @@
 <div class="container mt-4">
-  
-  <div class="row mb-2 d-flex align-items-stretch">
-  <!-- Event Title -->
+
   <div class="col-md-6 mb-3 d-flex align-items-center" id="title">
-    <h1 class="event-title"><span class="eventWord">Events </span><%= "/" + " " + @event.title %></h1>
+    <h1 class="event-title">
+      <%= link_to "Events  ", events_path, class: "eventWord" %>
+      <span> / <%= @event.title %></span>
+    </h1>
   </div>
 
   <div class="card-stack">
@@ -133,9 +134,16 @@
                 <% poll.poll_options.each do |option| %>
                   <li class="list-group-item">
                     <%= option.title %>
-                    <%= form_with(model: [@event, poll, option, Vote.new], local: true, method: :post, url: event_poll_poll_option_votes_path(@event, poll, option)) do |form| %>
-                      <%= form.hidden_field :poll_option_id, value: option.id %>
-                      <%= form.submit 'Vote', class: 'btn btn-primary btn-sm' %>
+                    <% vote = option.votes.find_by(user: current_user) %>
+                    <% if vote %>
+                      <%= form_with(model: [@event, poll, option, vote], local: true, method: :delete, url: event_poll_poll_option_vote_path(@event, poll, option, vote)) do |form| %>
+                        <%= form.submit 'Unvote', class: 'btn btn-warning btn-sm' %>
+                      <% end %>
+                    <% else %>
+                      <%= form_with(model: [@event, poll, option, Vote.new], local: true, method: :post, url: event_poll_poll_option_votes_path(@event, poll, option)) do |form| %>
+                        <%= form.hidden_field :poll_option_id, value: option.id %>
+                        <%= form.submit 'Vote', class: 'btn btn-primary btn-sm' %>
+                      <% end %>
                     <% end %>
                     <% vote_count = option.votes.count %>
                     <% percentage = total_votes.zero? ? 0 : (vote_count.to_f / total_votes * 100).round %>
@@ -144,6 +152,7 @@
                         <%= percentage %>%
                       </div>
                     </div>
+                    <br>
                     <span class="badge bg-secondary"><%= option.votes.count %> votes</span>
                     <% if @event.creator == current_user %>
                       <%= link_to 'Edit', edit_event_poll_poll_option_path(@event, poll, option), class: 'btn btn-warning btn-sm me-2' %>
@@ -159,7 +168,8 @@
         <p class="filler-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vehicula quam vel urna elementum, vel fermentum lacus ultrices. Phasellus nec commodo justo, et pharetra sapien. Etiam at dolor at ipsum ultricies convallis. Sed nec efficitur risus, in bibendum magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec scelerisque vel urna ac vehicula. Mauris eu risus a dui consequat vestibulum vel eu leo. Sed non sapien lacus. Sed lacinia velit at justo pharetra, vel auctor est auctor. Aenean sit amet nunc sit amet nisi fermentum scelerisque vel a ex. Proin ac viverra elit. Proin vestibulum, erat non auctor blandit, lectus felis fringilla arcu, nec consectetur nulla sapien in arcu.</p>
       </div>
     </div>
-    
+
+
     <!-- Comments Card -->
     <div class="card comments-card" onclick="expandCard(this)">
       <div class="card-header">
