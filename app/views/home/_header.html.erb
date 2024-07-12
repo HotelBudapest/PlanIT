@@ -1,13 +1,13 @@
 <nav class="navbar bg-dark-subtle border-bottom border-body" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Plan<span class="navbar-title-it">IT</span></a>
+    <a class="navbar-brand" href="/" data-refresh="true">Plan<span class="navbar-title-it">IT</span></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <%= link_to "Home", root_path, class: "nav-link" %>
+          <%= link_to "Home", root_path, class: "nav-link", data: { refresh: true } %>
         </li>
         <li class="nav-item">
           <%= link_to "Events", events_path, class: "nav-link" %>
@@ -39,3 +39,15 @@
     </div>
   </div>
 </nav>
+
+<script>
+  document.addEventListener("turbo:load", function() {
+    const refreshLinks = document.querySelectorAll('a[data-refresh="true"]');
+    refreshLinks.forEach(link => {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        window.location.href = link.href;
+      });
+    });
+  });
+</script>

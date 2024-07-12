@@ -322,6 +322,10 @@ body {
   animation: appear 1s ease-in;
 }
 
+.index-text h2{
+  font-size: 2.5rem;
+}
+
 .typewriter-container{
   margin: auto; /* Center horizontally */
   font-weight: bolder;
@@ -398,19 +402,18 @@ body {
   }
   
   .typewriter-container {
-    font-size: 2.5rem;
-    min-height: 7.5rem; 
+    font-size: 4rem;
+    min-height: 10rem; 
     white-space: normal;
   }
 
   .typewriter-container::after {
-    height: 1.1em; /* Adjust the cursor height for mobile */
+    height: 1.1em;
   }
-
 
   .index-text h1 {
     font-size: 1.2rem;
-    transform: translateY(1.5rem);
+    transform: translateY(0.01rem);
   }
   .index-text h2 {
     font-size: 3rem;
@@ -424,9 +427,10 @@ body {
 }
 
 .gradient-button {
+  text-decoration: none;
   font-family: "Playwrite GB S", cursive;
-  font-weight: bolder;
-  font-size: 1.5rem;
+  font-weight: light;
+  font-size: 2rem;
   padding: 10px 20px;
   border: 2px solid;
   border-image-slice: 1;
@@ -438,17 +442,35 @@ body {
   background-clip: text;
   cursor: pointer;
   outline: none;
+  position: relative;
+  overflow: hidden;
 }
 
-.gradient-button:hover {
+.gradient-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46, rgb(190, 190, 190));
-  border: 2px solid transparent;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+}
+
+.gradient-button:hover::before {
+  opacity: 1;
 }
 
 .gradient-button:focus {
   outline: none;
 }
 
+.gradient-button:hover {
+  color: rgb(255, 255, 255);
+  border: 2px solid white;
+}
 
 /* General Navbar Styles */
 
