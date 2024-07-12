@@ -17,7 +17,11 @@ Rails.application.routes.draw do
         resources :votes, only: [:create, :destroy]
       end
     end
-    resources :comments, only: [:create]
+    resources :comments, only: [:create, :update] do
+      member do
+        patch 'pin'
+      end
+    end
   end
 
   resources :users, only: [:show]

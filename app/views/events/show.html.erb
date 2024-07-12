@@ -1,5 +1,4 @@
 <div class="container mt-4">
-
   <div class="col-md-6 mb-3 d-flex align-items-center" id="title">
     <h1 class="event-title">
       <%= link_to "Events  ", events_path, class: "eventWord" %>
@@ -31,7 +30,7 @@
         <p class="filler-text">Filler text to ensure scrolling. This text will be hidden but maintains its height for scrolling purposes.</p>
       </div>
     </div>
-    
+
     <!-- Invite Users, Invite Link, and Attendees Card -->
     <div class="card invite-users-card" onclick="expandCard(this)">
       <div class="card-header">
@@ -71,7 +70,7 @@
         <p class="filler-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vehicula quam vel urna elementum, vel fermentum lacus ultrices. Phasellus nec commodo justo, et pharetra sapien. Etiam at dolor at ipsum ultricies convallis. Sed nec efficitur risus, in bibendum magna. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec scelerisque vel urna ac vehicula. Mauris eu risus a dui consequat vestibulum vel eu leo. Sed non sapien lacus. Sed lacinia velit at justo pharetra, vel auctor est auctor. Aenean sit amet nunc sit amet nisi fermentum scelerisque vel a ex. Proin ac viverra elit. Proin vestibulum, erat non auctor blandit, lectus felis fringilla arcu, nec consectetur nulla sapien in arcu.</p>
       </div>
     </div>
-    
+
     <!-- Polls Card -->
     <div class="card polls-card" onclick="expandCard(this)">
       <div class="card-header">
@@ -169,7 +168,6 @@
       </div>
     </div>
 
-
     <!-- Comments Card -->
     <div class="card comments-card" onclick="expandCard(this)">
       <div class="card-header">
@@ -185,17 +183,36 @@
           <%= form.submit 'Post Comment', class: 'btn btn-primary' %>
         <% end %>
 
-        <h3 class="mt-4">All Comments</h3>
+        <h3 class="mt-4">Pinned Comments</h3>
         <ul class="list-group">
-          <% @event.comments.each do |comment| %>
+          <% @pinned_comments.each do |comment| %>
             <li class="list-group-item">
               <strong><%= comment.user.first_name %> <%= comment.user.last_name %></strong>
               <span class="text-muted">(<%= comment.user.email %>)</span>
               <span class="text-muted">(<%= comment.created_at.strftime("%b %d, %Y %I:%M %p") %>)</span>
               <div><%= comment.content %></div>
+              <% if @event.creator == current_user %>
+                <%= link_to 'Unpin', pin_event_comment_path(@event, comment), method: :patch, data: { turbo_method: :patch }, class: 'btn btn-warning btn-sm' %>
+              <% end %>
             </li>
           <% end %>
         </ul>
+
+        <h3 class="mt-4">All Comments</h3>
+        <ul class="list-group">
+          <% @unpinned_comments.each do |comment| %>
+            <li class="list-group-item">
+              <strong><%= comment.user.first_name %> <%= comment.user.last_name %></strong>
+              <span class="text-muted">(<%= comment.user.email %>)</span>
+              <span class="text-muted">(<%= comment.created_at.strftime("%b %d, %Y %I:%M %p") %>)</span>
+              <div><%= comment.content %></div>
+              <% if @event.creator == current_user %>
+                <%= link_to 'Pin', pin_event_comment_path(@event, comment), method: :patch, data: { turbo_method: :patch }, class: 'btn btn-primary btn-sm' %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+
         <br>
         <br>
         <br>

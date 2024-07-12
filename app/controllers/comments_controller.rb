@@ -13,10 +13,10 @@ class CommentsController < ApplicationController
     end
   end
 
-  def destroy
+  def pin
     @comment = @event.comments.find(params[:id])
-    @comment.destroy
-    redirect_to @event, notice: 'Comment was successfully deleted.'
+    @comment.update(pinned: !@comment.pinned)
+    redirect_to @event, notice: 'Comment pin status was successfully updated.'
   end
 
   private

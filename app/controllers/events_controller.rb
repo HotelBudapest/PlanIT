@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_event, only: [:show, :edit, :update, :destroy, :invite, :join]
-  before_action :authorize_user!, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :invite, :join, :details, :polls, :comments, :announcements]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
     @created_events = current_user.created_events
@@ -11,12 +11,16 @@ class EventsController < ApplicationController
   def show
     @poll = Poll.new
     @poll_options = @event.polls.includes(:votes)
-    @comments = @event.comments.includes(:user)
     event_user = @event.event_users.find_or_initialize_by(user: current_user)
     if event_user.token.blank?
       event_user.token = SecureRandom.hex(10)
       event_user.save!
     end
+    @pinned_comments = @event.comments.where(pinned: true).order(created_at: :desc)
+    @unpinned_comments = @event.comments.where(pinned: false).order(created_at: :desc)
+
+    Rails.logger.debug "Pinned Comments: #{@pinned_comments.inspect}"
+    Rails.logger.debug "Unpinned Comments: #{@unpinned_comments.inspect}"
   end  
 
   def new

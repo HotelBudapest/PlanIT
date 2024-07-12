@@ -187,6 +187,19 @@ body {
   background-color: #66ccff !important;
 }
 
+.btn-pin {
+  background-color: transparent;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-pin:hover {
+  color: #0056b3;
+}
+
+
 
 .comments-card:hover{
   transform: scale(1.05);

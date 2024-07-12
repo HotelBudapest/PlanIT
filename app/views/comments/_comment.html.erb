@@ -1,7 +1,9 @@
-
-<div class="comment">
-  <%= comment.user.email %> (<%= comment.created_at.strftime("%b %d, %Y %H:%M %p") %>)
-  <div class="comment-content">
-    <%= comment.content %>
-  </div>
-</div>
+<li class="list-group-item">
+  <strong><%= comment.user.first_name %> <%= comment.user.last_name %></strong>
+  <span class="text-muted">(<%= comment.user.email %>)</span>
+  <span class="text-muted">(<%= comment.created_at.strftime("%b %d, %Y %I:%M %p") %>)</span>
+  <div><%= comment.content %></div>
+  <% if @event.creator == current_user %>
+    <%= link_to 'Pin', pin_event_comment_path(@event, comment), method: :patch, class: 'btn btn-primary btn-sm' %>
+  <% end %>
+</li>
