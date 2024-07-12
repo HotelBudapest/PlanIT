@@ -1,2 +1,46 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="index-body">
+    <h1 class="typewriter-container"></h1>
+    <br>
+    <br>
+    <div class="index-text">
+        <h1>Let Me Help You With That.</h1>
+        <br>
+        <br>
+        <h2>
+            Got Plans? Let <span style=" font-family: 'Playwrite GB S', cursive;">Plan</span><span class="ITText">IT</span> handle it for you! Make an <span class="eventWord">Event</span> right now
+        <h2>
+        <br>
+        <%= link_to "Events", events_path, class:"gradient-button", type:"button"%>     
+    </div>
+</div>
+
+<script>
+  document.addEventListener("turbo:load", function() {
+    const words = ["Meeting up?", "Hanging out?", "Planning activities?", "Chasing fun?", "Creating memories?"];
+    let i = 0;
+    let j = 0;
+    let currentWord = '';
+    let isDeleting = false;
+    const typeSpeed = 150;
+    const deleteSpeed = 75;
+    const pause = 2000;
+
+    function type() {
+      const h1 = document.querySelector('.typewriter-container');
+      if (isDeleting && currentWord.length === 0) {
+        isDeleting = false;
+        i = (i + 1) % words.length;
+        setTimeout(type, typeSpeed);
+      } else if (!isDeleting && currentWord.length === words[i].length) {
+        isDeleting = true;
+        setTimeout(type, pause);
+      } else {
+        currentWord = isDeleting ? words[i].substring(0, currentWord.length - 1) : words[i].substring(0, currentWord.length + 1);
+        h1.innerHTML = currentWord;
+        setTimeout(type, isDeleting ? deleteSpeed : typeSpeed);
+      }
+    }
+
+    type();
+  });
+</script>

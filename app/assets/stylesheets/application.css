@@ -282,6 +282,59 @@ body {
   color: #fff;
 }
 
+.index-body {
+  background-color: #000000;
+  color: #ffffff;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+}
+
+.index-text{
+  background-color: transparent;
+  color: #ffffff;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  padding-top: 20px;
+  transform: translateY(-10rem);
+  animation: appear 1s ease-in;
+}
+
+.typewriter-container{
+  margin: auto; /* Center horizontally */
+  font-weight: bolder;
+  font-size: 8rem;
+  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46, rgb(190, 190, 190));
+  display: inline-block;
+  white-space: nowrap;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: spiral-colors 3s infinite linear;
+  min-height: 10rem;
+  overflow: visible;
+  position: relative;
+}
+
+.typewriter-container::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 85%; /* Default cursor height */
+  width: 2px;
+  background-color: #ffffff;
+  animation: blinkCursor 1s step-end infinite;
+}
+
 @media (max-width: 767px) {
   .card-title{
     font-size: 2rem;
@@ -289,6 +342,10 @@ body {
   .event-description-card{
     margin-left: 0;
     margin-bottom: -45rem;
+  }
+
+  .event-description-card .card-content {
+    font-size: 1.3rem;
   }
 
   .event-description-card:hover{
@@ -318,7 +375,67 @@ body {
     transform: scale(1);
   }  
 
+  .index-body {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+  }
+  
+  .typewriter-container {
+    font-size: 2.5rem;
+    min-height: 7.5rem; 
+    white-space: normal;
+  }
+
+  .typewriter-container::after {
+    height: 1.1em; /* Adjust the cursor height for mobile */
+  }
+
+
+  .index-text h1 {
+    font-size: 1.2rem;
+    transform: translateY(1.5rem);
+  }
+  .index-text h2 {
+    font-size: 3rem;
+    transform: translateY(1.5rem);
+  }
+
+  .gradient-button{
+    transform: translateY(-6rem);
+  }
+
 }
+
+.gradient-button {
+  font-family: "Playwrite GB S", cursive;
+  font-weight: bolder;
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  border: 2px solid;
+  border-image-slice: 1;
+  border-width: 2px;
+  border-image-source: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46, rgb(190, 190, 190));
+  background-color: transparent;
+  color: rgb(255, 255, 255);
+  -webkit-background-clip: text;
+  background-clip: text;
+  cursor: pointer;
+  outline: none;
+}
+
+.gradient-button:hover {
+  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46, rgb(190, 190, 190));
+  border: 2px solid transparent;
+}
+
+.gradient-button:focus {
+  outline: none;
+}
+
 
 /* General Navbar Styles */
 
@@ -343,7 +460,7 @@ body {
 .eventWord{
   font-weight: bold;
   font-family: "Playwrite GB S", cursive;
-  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46, rgb(190, 190, 190));
+  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46);
   background-clip: text;
   display: inline-block;
   transition: transform 0.3s ease-in-out; 
@@ -358,6 +475,15 @@ body {
 
 .navbar .navbar-title-it {
   font-size: 2.8rem;
+  font-family: sans-serif;
+  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(125, 0, 255), #00ba46, rgb(190, 190, 190));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: spiral-colors 3s infinite linear;
+}
+
+.ITText{
   font-family: sans-serif;
   background: linear-gradient(45deg, #ffa510, #ff5500, rgb(125, 0, 255), #00ba46, rgb(190, 190, 190));
   background-clip: text;
@@ -385,4 +511,14 @@ body {
   .navbar .navbar-title-it {
     font-size: 2rem;
   }
+}
+
+@keyframes blinkCursor {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #ffffff; }
+}
+
+@keyframes appear {
+  from{opacity: 0;}
+  to{opacity: 1;}
 }
