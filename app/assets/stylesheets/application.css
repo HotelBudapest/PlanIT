@@ -413,7 +413,7 @@ body {
 
   .index-text h1 {
     font-size: 1.2rem;
-    transform: translateY(0.01rem);
+    transform: translateY(0.005rem);
   }
   .index-text h2 {
     font-size: 3rem;
