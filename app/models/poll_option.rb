@@ -1,5 +1,6 @@
 class PollOption < ApplicationRecord
   belongs_to :poll
   has_many :votes, dependent: :destroy
-end
 
+  validates :title, presence: true
+end

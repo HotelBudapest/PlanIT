@@ -74,9 +74,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_131910) do
   end
 
   create_table "poll_options", force: :cascade do |t|
+    t.string "title", null: false
     t.integer "poll_id", null: false
-    t.string "title"
-    t.integer "votes_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["poll_id"], name: "index_poll_options_on_poll_id"
@@ -96,17 +95,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_131910) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.string "verification_code"
-    t.boolean "verified"
     t.string "first_name"
     t.string "last_name"
     t.string "phone_number", limit: 20
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "verification_code"
+    t.boolean "verified"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -126,9 +125,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_131910) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "events"
+  add_foreign_key "comments", "events", on_delete: :cascade
   add_foreign_key "comments", "users", on_delete: :cascade
-  add_foreign_key "event_users", "events"
+  add_foreign_key "event_users", "events", on_delete: :cascade
   add_foreign_key "event_users", "users", on_delete: :cascade
   add_foreign_key "events", "users", column: "creator_id", on_delete: :cascade
   add_foreign_key "poll_options", "polls"
