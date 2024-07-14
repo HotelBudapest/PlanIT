@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: :index
   before_action :set_event, only: [:show, :edit, :update, :destroy, :invite, :join, :details, :polls, :comments, :announcements]
   before_action :authorize_user!, only: [:edit, :update, :destroy]
 
@@ -8,7 +8,8 @@ class EventsController < ApplicationController
       @created_events = current_user.created_events
       @invited_events = current_user.events.where.not(creator: current_user)
     else
-      @events = Event.all
+      @created_events = []
+      @invited_events = []
     end
   end
 
