@@ -17,5 +17,6 @@ services:
           name: planit
           property: connectionString
       - key: RAILS_MASTER_KEY
-        sync:false- key: WEB_CONCURRENCY
-        value: 2 # sensible default
+        sync: false
+      - key: WEB_CONCURRENCY
+        value: 2
