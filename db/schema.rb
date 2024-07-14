@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2024_07_12_131910) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,8 +43,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_131910) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "event_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "event_id", null: false
+    t.bigint "user_id", null: false
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -51,8 +54,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_131910) do
   end
 
   create_table "event_users", force: :cascade do |t|
-    t.integer "event_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "event_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "token"
@@ -75,14 +78,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_131910) do
 
   create_table "poll_options", force: :cascade do |t|
     t.string "title", null: false
-    t.integer "poll_id", null: false
+    t.bigint "poll_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["poll_id"], name: "index_poll_options_on_poll_id"
   end
 
   create_table "polls", force: :cascade do |t|
-    t.integer "event_id", null: false
+    t.bigint "event_id", null: false
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -111,16 +114,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_131910) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "votes", force: :cascade do |t|
-    t.integer "poll_id", null: false
-    t.integer "user_id", null: false
+  create_table "votes", id: :integer, default: -> { "nextval('votes_new_id_seq'::regclass)" }, force: :cascade do |t|
+    t.integer "poll_id"
+    t.integer "user_id"
     t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "poll_option_id", null: false
-    t.index ["poll_id"], name: "index_votes_on_poll_id"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
+    t.bigint "poll_option_id", null: false
     t.index ["poll_option_id"], name: "index_votes_on_poll_option_id"
-    t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -133,6 +134,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_12_131910) do
   add_foreign_key "poll_options", "polls"
   add_foreign_key "polls", "events"
   add_foreign_key "votes", "poll_options"
-  add_foreign_key "votes", "polls"
+  add_foreign_key "votes", "polls", name: "votes_new_poll_id_fkey"
   add_foreign_key "votes", "users", on_delete: :cascade
 end

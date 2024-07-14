@@ -16,6 +16,7 @@ gem "puma", ">= 5.0"
 
 gem 'phony_rails'
 
+gem 'pg'
 
 gem 'font-awesome-sass', '~> 6.0'
 
