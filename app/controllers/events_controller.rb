@@ -1,27 +1,35 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_event, only: [:show, :edit, :update, :destroy, :invite, :join, :details, :polls, :comments, :announcements]
   before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
-    @created_events = current_user.created_events
-    @invited_events = current_user.events.where.not(creator: current_user)
-  end  
+    if user_signed_in?
+      @created_events = current_user.created_events
+      @invited_events = current_user.events.where.not(creator: current_user)
+    else
+      @events = Event.all
+    end
+  end
 
   def show
-    @poll = Poll.new
-    @poll_options = @event.polls.includes(:votes)
-    event_user = @event.event_users.find_or_initialize_by(user: current_user)
-    if event_user.token.blank?
-      event_user.token = SecureRandom.hex(10)
-      event_user.save!
-    end
-    @pinned_comments = @event.comments.where(pinned: true).order(created_at: :desc)
-    @unpinned_comments = @event.comments.where(pinned: false).order(created_at: :desc)
+    if user_signed_in?
+      @poll = Poll.new
+      @poll_options = @event.polls.includes(:votes)
+      event_user = @event.event_users.find_or_initialize_by(user: current_user)
+      if event_user.token.blank?
+        event_user.token = SecureRandom.hex(10)
+        event_user.save!
+      end
+      @pinned_comments = @event.comments.where(pinned: true).order(created_at: :desc)
+      @unpinned_comments = @event.comments.where(pinned: false).order(created_at: :desc)
 
-    Rails.logger.debug "Pinned Comments: #{@pinned_comments.inspect}"
-    Rails.logger.debug "Unpinned Comments: #{@unpinned_comments.inspect}"
-  end  
+      Rails.logger.debug "Pinned Comments: #{@pinned_comments.inspect}"
+      Rails.logger.debug "Unpinned Comments: #{@unpinned_comments.inspect}"
+    else
+      redirect_to new_user_session_path, alert: 'You need to sign in to view the event details.'
+    end
+  end
 
   def new
     @event = Event.new
@@ -64,7 +72,6 @@ class EventsController < ApplicationController
   rescue ActiveRecord::RecordInvalid => e
     redirect_to events_url, alert: 'Failed to destroy event due to associated records.'
   end
-  
 
   def invite
     user = User.find_by(email: params[:user_email])
@@ -77,7 +84,7 @@ class EventsController < ApplicationController
       redirect_to @event, alert: "Unable to invite user."
     end
   end
-  
+
   def join
     event_user = @event.event_users.find_by(token: params[:token])
     if event_user.present?
@@ -98,7 +105,7 @@ class EventsController < ApplicationController
     unless @event.creator == current_user || @event.event_users.exists?(user_id: current_user.id)
       redirect_to root_path, alert: 'You are not authorized to view this event.'
     end
-  end  
+  end
 
   def event_params
     params.require(:event).permit(
