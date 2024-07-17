@@ -331,6 +331,7 @@ body {
   font-weight: bolder;
   font-size: 8rem;
   background: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46, rgb(190, 190, 190));
+  opacity: 70%;
   display: inline-block;
   white-space: nowrap;
   -webkit-background-clip: text;
@@ -405,6 +406,7 @@ body {
     font-size: 4rem;
     min-height: 10rem; 
     white-space: normal;
+    opacity: 1;
   }
 
   .typewriter-container::after {
@@ -413,15 +415,11 @@ body {
 
   .index-text h1 {
     font-size: 1.2rem;
-    transform: translateY(0.005rem);
+    transform: translateY(0.2rem);
   }
   .index-text h2 {
     font-size: 3rem;
     transform: translateY(1.5rem);
-  }
-
-  .gradient-button{
-    transform: translateY(-6rem);
   }
 
 }
@@ -430,6 +428,7 @@ body {
   text-decoration: none;
   font-family: "Playwrite GB S", cursive;
   font-weight: light;
+  margin-top: 3rem;
   font-size: 2rem;
   padding: 10px 20px;
   border: 2px solid;
