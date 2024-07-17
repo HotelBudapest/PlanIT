@@ -25,7 +25,7 @@
             <%= link_to "My Account", edit_user_registration_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <a data-turbo-method="delete" class="nav-link" href="/users/sign_out">Sign Out</a>
+            <a href="#" class="nav-link" id="sign-out-link">Sign Out</a>
           </li>
         <% else %>
           <li class="nav-item">
@@ -43,10 +43,32 @@
 <script>
   document.addEventListener("turbo:load", function() {
     const homeLink = document.getElementById('home-link');
+    const signOutLink = document.getElementById('sign-out-link');
+
     if (homeLink) {
       homeLink.addEventListener('click', function(event) {
         event.preventDefault();
         window.location.href = homeLink.href;
+      });
+    }
+
+    if (signOutLink) {
+      signOutLink.addEventListener('click', function(event) {
+        event.preventDefault();
+        if (window.typewriterInterval) {
+          clearInterval(window.typewriterInterval);
+        }
+        fetch('<%= destroy_user_session_path %>', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': '<%= form_authenticity_token %>'
+          }
+        }).then(response => {
+          if (response.ok) {
+            window.location.href = '<%= root_path %>';
+          }
+        });
       });
     }
 
