@@ -422,6 +422,10 @@ body {
     transform: translateY(1.5rem);
   }
 
+  .gradient-button {
+    margin-top: 5rem;
+  }
+
 }
 
 .gradient-button {
