@@ -422,17 +422,13 @@ body {
     transform: translateY(1.5rem);
   }
 
-  .gradient-button {
-    margin-top: 5rem;
-  }
-
 }
 
 .gradient-button {
   text-decoration: none;
   font-family: "Playwrite GB S", cursive;
   font-weight: light;
-  margin-top: 3rem;
+  margin-top: 5rem;
   font-size: 2rem;
   padding: 10px 20px;
   border: 2px solid;
