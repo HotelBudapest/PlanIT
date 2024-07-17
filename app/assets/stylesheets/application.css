@@ -14,6 +14,14 @@ body {
   font-size: 2rem;
 }
 
+.card{
+  border-radius: 20px;
+}
+
+.card-img-top{
+  border-radius: 20px;
+}
+
 .card-stack {
   display: flex;
   flex-direction: column;
@@ -37,10 +45,10 @@ body {
 }
 
 .card-title {
+  border-radius: 20px;
   margin: 0;
   font-weight: lighter;
-  font-style: normal;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   color: #000;
 }
 
@@ -353,6 +361,137 @@ body {
   animation: blinkCursor 1s step-end infinite;
 }
 
+.gradient-button {
+  text-decoration: none;
+  font-family: "Playwrite GB S", cursive;
+  font-weight: light;
+  font-size: 2rem;
+  padding: 10px 20px;
+  border: 2px solid;
+  border-image-slice: 1;
+  border-width: 2px;
+  border-image-source: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46, rgb(190, 190, 190));
+  background-color: transparent;
+  color: rgb(255, 255, 255);
+  -webkit-background-clip: text;
+  background-clip: text;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46, rgb(190, 190, 190));
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+}
+
+.gradient-button:hover::before {
+  opacity: 1;
+}
+
+.gradient-button:focus {
+  outline: none;
+}
+
+.gradient-button:hover {
+  color: rgb(255, 255, 255);
+  border: 2px solid white;
+}
+
+/* General Navbar Styles */
+
+.navbar{
+  font-size: 1.1rem;
+  background-color: #000;
+  border-bottom: 1px solid rgb(54, 54, 54);
+}
+
+.navbar-toggler{
+  border: 1px solid #777575;
+}
+
+.nav-link{
+  color: #ccc;
+}
+
+.nav-link:hover{
+  color: white;
+}
+
+.navbar .navbar-brand {
+  font-size: 2rem;
+  color: #ffffff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  font-family: "Playwrite GB S", cursive;
+}
+
+.eventWord{
+  font-weight: bold;
+  font-family: "Playwrite GB S", cursive;
+  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46);
+  background-clip: text;
+  display: inline-block;
+  transition: transform 0.3s ease-in-out; 
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: spiral-colors 3s infinite linear;
+}
+
+.eventWord:hover {
+  transform: scale(1.1);
+}
+
+.navbar .navbar-title-it {
+  font-size: 2.8rem;
+  font-family: sans-serif;
+  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(125, 0, 255), #00ba46, rgb(190, 190, 190));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: spiral-colors 3s infinite linear;
+}
+
+.ITText{
+  font-family: sans-serif;
+  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(125, 0, 255), #00ba46, rgb(190, 190, 190));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: spiral-colors 3s infinite linear;
+}
+
+/* Spiral Color Animation */
+@keyframes spiral-colors {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+
+@keyframes blinkCursor {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #ffffff; }
+}
+
+@keyframes appear {
+  from{opacity: 0;}
+  to{opacity: 1;}
+}
+
 @media (max-width: 767px) {
   .card-title{
     font-size: 2rem;
@@ -422,121 +561,6 @@ body {
     transform: translateY(1.5rem);
   }
 
-}
-
-.gradient-button {
-  text-decoration: none;
-  font-family: "Playwrite GB S", cursive;
-  font-weight: light;
-  font-size: 2rem;
-  padding: 10px 20px;
-  border: 2px solid;
-  border-image-slice: 1;
-  border-width: 2px;
-  border-image-source: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46, rgb(190, 190, 190));
-  background-color: transparent;
-  color: rgb(255, 255, 255);
-  -webkit-background-clip: text;
-  background-clip: text;
-  cursor: pointer;
-  outline: none;
-  position: relative;
-  overflow: hidden;
-}
-
-.gradient-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46, rgb(190, 190, 190));
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  z-index: -1;
-}
-
-.gradient-button:hover::before {
-  opacity: 1;
-}
-
-.gradient-button:focus {
-  outline: none;
-}
-
-.gradient-button:hover {
-  color: rgb(255, 255, 255);
-  border: 2px solid white;
-}
-
-/* General Navbar Styles */
-
-.navbar{
-  opacity: 0.7;
-  transition: opacity 0.3s; 
-}
-
-.navbar:hover{
-  opacity: 1;
-}
-
-.navbar .navbar-brand {
-  font-size: 2rem;
-  color: #ffffff;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  font-family: "Playwrite GB S", cursive;
-}
-
-.eventWord{
-  font-weight: bold;
-  font-family: "Playwrite GB S", cursive;
-  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(146, 52, 245), #00ba46);
-  background-clip: text;
-  display: inline-block;
-  transition: transform 0.3s ease-in-out; 
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: spiral-colors 3s infinite linear;
-}
-
-.eventWord:hover {
-  transform: scale(1.1);
-}
-
-.navbar .navbar-title-it {
-  font-size: 2.8rem;
-  font-family: sans-serif;
-  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(125, 0, 255), #00ba46, rgb(190, 190, 190));
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: spiral-colors 3s infinite linear;
-}
-
-.ITText{
-  font-family: sans-serif;
-  background: linear-gradient(45deg, #ffa510, #ff5500, rgb(125, 0, 255), #00ba46, rgb(190, 190, 190));
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: spiral-colors 3s infinite linear;
-}
-
-/* Spiral Color Animation */
-@keyframes spiral-colors {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
-
-/* Responsive Styles */
-@media (max-width: 767px) {
   .navbar .navbar-brand {
     font-size: 1.5rem;
   }
@@ -544,14 +568,5 @@ body {
   .navbar .navbar-title-it {
     font-size: 2rem;
   }
-}
 
-@keyframes blinkCursor {
-  0%, 100% { border-color: transparent; }
-  50% { border-color: #ffffff; }
-}
-
-@keyframes appear {
-  from{opacity: 0;}
-  to{opacity: 1;}
 }
