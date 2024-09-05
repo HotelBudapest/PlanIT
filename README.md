@@ -125,5 +125,3 @@ The database schema includes the following key tables:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-You can copy and paste this directly into your `README.md` file for **PlanIT**.
