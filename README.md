@@ -6,12 +6,6 @@ The project is being hosted in a free hosting service for now called 'Render'. T
 
 [Click Me to go to PlanIt!](https://planit-zusn.onrender.com)
 
-You can try out your own email to access the features! Otherwise, you may use the following dummy email and password:
-
-**Email**: mamavalorant03@gmail.com
-
-**Password**: SOME12345
-
 ## Features
 
 - **User Authentication**: Users can sign up, log in, and confirm their accounts via email. Users must be logged in to interact with events.
@@ -19,10 +13,10 @@ You can try out your own email to access the features! Otherwise, you may use th
 
 <div style="text-align: center;">
   <div style="display: inline-block; margin: 10px;">
-    <img src="rsc_img/home.png" alt="Invite Image" width="500">
+    <img src="rsc_img/home.png" alt="Invite Image" width="200">
   </div>
   <div style="display: inline-block; margin: 10px;">
-    <img src="rsc_img/events-show.png" alt="Invited Image" width="560">
+    <img src="rsc_img/events-show.png" alt="Invited Image" width="260">
   </div>
 </div>
 
