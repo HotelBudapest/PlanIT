@@ -1,16 +1,61 @@
-# PlantIT
+# PlanIT
 
-PlantIT is a Ruby on Rails application that allows users to create events, invite others, and manage events through features such as comments, polls, and invitations. Users can interact with events, participate in polls, and leave comments on the events they are invited to or have created.
+PlanIT is a Ruby on Rails application that allows users to create events, invite others, and manage events through features such as comments, polls, and invitations. Users can interact with events, participate in polls, and leave comments on the events they are invited to or have created.
+
+The project is being hosted in a free hosting service for now called 'Render'. The free tier of this service causes the web-app to spin down when inactive and it might take up to 50 seconds to spin back up again. With that being said, this web-app can be tried out in the following link:
+
+[Click Me to go to PlanIt!](https://planit-zusn.onrender.com)
+
+You can try out your own email to access the features! Otherwise, you may use the following dummy email and password:
+
+**Email**: mamavalorant03@gmail.com
+
+**Password**: SOME12345
 
 ## Features
 
 - **User Authentication**: Users can sign up, log in, and confirm their accounts via email. Users must be logged in to interact with events.
-- **Create and Manage Events**: Users can create events with details such as the title, description, location, start and end times, and more. Event creators can edit or delete their events.
-- **Invitations**: Users can invite other registered users by email to join their events. Invitees can accept invitations and participate in the event.
+- **Create and Manage Events**: Users can create events with details such as the title, description, location, start and end times, and more. Event creators can edit or delete their events. The following images are that of the Home Page and the inside of an event page respectively - 
+
+<div style="text-align: center;">
+  <div style="display: inline-block; margin: 10px;">
+    <img src="rsc_img/home.png" alt="Invite Image" width="500">
+  </div>
+  <div style="display: inline-block; margin: 10px;">
+    <img src="rsc_img/events-show.png" alt="Invited Image" width="560">
+  </div>
+</div>
+
+- **Invitations**: Users can invite other registered users by email to join their events. Invitees can accept invitations and participate in the event. The following images are that of the invitation tile and invited events displayed in the central events-dashboard
+
+<div style="text-align: center;">
+  <div style="display: inline-block; margin: 10px;">
+    <img src="rsc_img/invite.png" alt="Invite Image" width="400">
+  </div>
+  <div style="display: inline-block; margin: 10px;">
+    <img src="rsc_img/invited.png" alt="Invited Image" width="525">
+  </div>
+</div>
+
 - **Comments**: Users can comment on events they are part of. Event creators can pin comments, and comments are divided into pinned and unpinned sections.
-- **Polls**: Event creators can create polls, allowing attendees to vote on various options. Users can only vote once on each poll option, and votes can be removed.
+- **Polls**: Event creators can create polls, allowing attendees to vote on various options. Users can only vote once on each poll option, and votes can be removed. The following images are of Comments and Polls tiles respectively - 
+
+<div style="text-align: center;">
+  <div style="display: inline-block; margin: 10px;">
+    <img src="rsc_img/comments.png" alt="Invite Image" width="525">
+  </div>
+  <div style="display: inline-block; margin: 10px;">
+    <img src="rsc_img/polls.png" alt="Invited Image" width="525">
+  </div>
+</div>
+
 - **Account Verification**: Users must verify their accounts via a verification code sent to their email upon registration.
-- **User Dashboard**: Users can view events they created and events they have been invited to on their dashboard.
+- **User Dashboard**: Users can view events they created and events they have been invited to on their dashboard. The following image is of the User Dashboard - 
+
+<div style="text-align: center;">
+  <img src="rsc_img/events-page.png" alt="Alt text" width="750">
+</div>
+
 
 ## Getting Started
 
@@ -27,8 +72,8 @@ Make sure you have the following installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/plantit.git
-   cd plantit
+   git clone https://github.com/your-username/PlanIT.git
+   cd PlanIT
    ```
 
 2. Install the required gems:
@@ -108,4 +153,4 @@ The database schema includes the following key tables:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-You can copy and paste this directly into your `README.md` file for **PlantIT**.
+You can copy and paste this directly into your `README.md` file for **PlanIT**.
