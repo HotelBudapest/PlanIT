@@ -9,47 +9,26 @@ The project is being hosted in a free hosting service for now called 'Render'. T
 ## Features
 
 - **User Authentication**: Users can sign up, log in, and confirm their accounts via email. Users must be logged in to interact with events.
-- **Create and Manage Events**: Users can create events with details such as the title, description, location, start and end times, and more. Event creators can edit or delete their events. The following images are that of the Home Page and the inside of an event page respectively - 
+- **Create and Manage Events**: Users can create events with details such as the title, description, location, start and end times, and more. Event creators can edit or delete their events. The following images are that of the Home Page and the inside of an event page respectively:
 
-<div style="text-align: center;">
-  <div style="display: inline-block; margin: 10px;">
-    <img src="rsc_img/home.png" alt="Invite Image" width="500">
-  </div>
-  <div style="display: inline-block; margin: 10px;">
-    <img src="rsc_img/events-show.png" alt="Invited Image" width="560">
-  </div>
-</div>
+![Home Page](rsc_img/home.png)
+![Event Page](rsc_img/events-show.png)
 
-- **Invitations**: Users can invite other registered users by email to join their events. Invitees can accept invitations and participate in the event. The following images are that of the invitation tile and invited events displayed in the central events-dashboard
+- **Invitations**: Users can invite other registered users by email to join their events. Invitees can accept invitations and participate in the event. The following images are that of the invitation tile and invited events displayed in the central events-dashboard:
 
-<div style="text-align: center;">
-  <div style="display: inline-block; margin: 10px;">
-    <img src="rsc_img/invite.png" alt="Invite Image" width="400">
-  </div>
-  <div style="display: inline-block; margin: 10px;">
-    <img src="rsc_img/invited.png" alt="Invited Image" width="525">
-  </div>
-</div>
+![Invite Tile](rsc_img/invite.png)
+![Invited Events](rsc_img/invited.png)
 
 - **Comments**: Users can comment on events they are part of. Event creators can pin comments, and comments are divided into pinned and unpinned sections.
-- **Polls**: Event creators can create polls, allowing attendees to vote on various options. Users can only vote once on each poll option, and votes can be removed. The following images are of Comments and Polls tiles respectively - 
+- **Polls**: Event creators can create polls, allowing attendees to vote on various options. Users can only vote once on each poll option, and votes can be removed. The following images are of Comments and Polls tiles respectively:
 
-<div style="text-align: center;">
-  <div style="display: inline-block; margin: 10px;">
-    <img src="rsc_img/comments.png" alt="Invite Image" width="525">
-  </div>
-  <div style="display: inline-block; margin: 10px;">
-    <img src="rsc_img/polls.png" alt="Invited Image" width="525">
-  </div>
-</div>
+![Comments Tile](rsc_img/comments.png)
+![Polls Tile](rsc_img/polls.png)
 
 - **Account Verification**: Users must verify their accounts via a verification code sent to their email upon registration.
-- **User Dashboard**: Users can view events they created and events they have been invited to on their dashboard. The following image is of the User Dashboard - 
+- **User Dashboard**: Users can view events they created and events they have been invited to on their dashboard. The following image is of the User Dashboard:
 
-<div style="text-align: center;">
-  <img src="rsc_img/events-page.png" alt="Alt text" width="750">
-</div>
-
+![User Dashboard](rsc_img/events-page.png)
 
 ## Getting Started
 
