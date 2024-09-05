@@ -13,10 +13,10 @@ The project is being hosted in a free hosting service for now called 'Render'. T
 
 <div style="text-align: center;">
   <div style="display: inline-block; margin: 10px;">
-    <img src="rsc_img/home.png" alt="Invite Image" width="200">
+    <img src="rsc_img/home.png" alt="Invite Image" width="500">
   </div>
   <div style="display: inline-block; margin: 10px;">
-    <img src="rsc_img/events-show.png" alt="Invited Image" width="260">
+    <img src="rsc_img/events-show.png" alt="Invited Image" width="560">
   </div>
 </div>
 
