@@ -1,6 +1,3 @@
-Here’s the revised `README.md` for your project, named **PlantIT**, in a copy-paste-able format:
-
-```markdown
 # PlantIT
 
 PlantIT is a Ruby on Rails application that allows users to create events, invite others, and manage events through features such as comments, polls, and invitations. Users can interact with events, participate in polls, and leave comments on the events they are invited to or have created.
@@ -110,6 +107,5 @@ The database schema includes the following key tables:
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
 
 You can copy and paste this directly into your `README.md` file for **PlantIT**.
