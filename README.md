@@ -121,3 +121,5 @@ The database schema includes the following key tables:
 - **Inviting Users**: Once an event is created, the event creator can invite other users by their email addresses.
 - **Adding Comments**: Event participants can add comments to the event discussion.
 - **Creating and Voting on Polls**: Event creators can create polls, and event participants can cast votes on poll options.
+
+- Another Fix#2
