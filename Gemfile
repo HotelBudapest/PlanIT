@@ -80,7 +80,7 @@ group :development, :test do
 end
 
 group :production do
-  gem "pg", "~> 1.5"
+  gem "pg", "~> 1.5.5"
 end
 
 gem "devise", "~> 4.9"
